@@ -1,0 +1,30 @@
+// Right Sidebar
+.right-bar
+  .h-100(data-simplebar='')
+    .rightbar-title.px-3.py-4
+      a.right-bar-toggle.float-right(href='javascript:void(0);')
+        i.mdi.mdi-close.noti-icon
+      h5.m-0 Settings
+    // Settings
+    hr.mt-0
+    h6.text-center.mb-0 Choose Layouts
+    .p-4
+      .mb-2
+        img.img-fluid.img-thumbnail(src='/images/layouts/layout-1.jpg', alt='')
+      .custom-control.custom-switch.mb-3
+        input#light-mode-switch.custom-control-input.theme-choice(type='checkbox', checked='')
+        label.custom-control-label(for='light-mode-switch') Light Mode
+      .mb-2
+        img.img-fluid.img-thumbnail(src='/images/layouts/layout-2.jpg', alt='')
+      .custom-control.custom-switch.mb-3
+        input#dark-mode-switch.custom-control-input.theme-choice(type='checkbox', data-bsstyle='/css/bootstrap-dark.css', data-appstyle='/css/app-dark.min.css')
+        label.custom-control-label(for='dark-mode-switch') Dark Mode
+      .mb-2
+        img.img-fluid.img-thumbnail(src='/images/layouts/layout-3.jpg', alt='')
+      .custom-control.custom-switch.mb-5
+        input#rtl-mode-switch.custom-control-input.theme-choice(type='checkbox', data-appstyle='/css/app-rtl.css')
+        label.custom-control-label(for='rtl-mode-switch') RTL Mode
+  // end slimscroll-menu
+// /Right-bar
+// Right bar overlay
+.rightbar-overlay

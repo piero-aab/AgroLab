@@ -1,0 +1,28 @@
+extends ../layouts/main.pug
+block content
+  .page-wrapper.mt-5
+    section.contact-one
+      .container
+        h2.contact-one__title.text-center
+          | Registrarme
+        form.contact-one__form(method="POST" onsubmit=" return validateRegister(event)")
+          .row.low-gutters.justify-content-center
+            .col-lg-6
+              input#email(type='text', placeholder='Correo', name='email', required)
+          .row.low-gutters.justify-content-center
+            .col-lg-6
+              input#pswd(type='password', placeholder='Contraseña', name='pswd', required)
+          .row.low-gutters.justify-content-center
+            .col-lg-6
+              input#pswd2(type='password', placeholder='Contraseña', name='pswd2', required)
+          .row.low-gutters.justify-content-center
+            .col-lg-6
+              .text-center
+                button.contact-one__btn.thm-btn.w-100(type='submit') Registrarme
+        p.text-center.mt-4
+          | Si aún ya tienes cuenta, inicia sesión  
+          a(href="#") aquí
+          br
+          | o
+          br
+          | Inicia sesión con Google

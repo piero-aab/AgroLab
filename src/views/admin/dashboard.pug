@@ -1,0 +1,46 @@
+extends ../layouts/main
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content
+    .page-content
+      .container-fluid
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-between
+              h1.mb-0 Panel
+              // .page-title-right
+                ol.breadcrumb.m-0
+                  li.breadcrumb-item
+                    a(href='javascript: void(0);') Invenio
+                  li.breadcrumb-item.active Panel
+        // end page title
+        .row
+          .col-xl-12
+            .row
+              .col-md-4
+                a(href="/admin/clientes") 
+                  .card
+                    img.icon-dashboard--layout(src="/images/invenio/employee.svg")
+                    // i.fas.fa-users.card-img-top
+                    .card-body
+                      h4.card-title
+                        h5.card-title.text-center.font-icon--dashboard Clientes
+              .col-md-4
+                a(href="/admin/analistas") 
+                  .card
+                    img.icon-dashboard--layout(src="/images/invenio/analist.svg")
+                    // i.fas.fa-user-tie.card-img-top
+                    .card-body
+                      h4.card-title
+                        h5.card-title.text-center.font-icon--dashboard Analistas
+              .col-md-4
+                a(href="/admin/asignaciones") 
+                  .card
+                    img.icon-dashboard--layout(src="/images/invenio/assignament.svg")
+                    // i.card-img-top
+                    .card-body
+                      h4.card-title
+                        h5.card-title.text-center.font-icon--dashboard Asignaciones

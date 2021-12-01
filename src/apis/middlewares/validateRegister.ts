@@ -1,8 +1,9 @@
 export function validateRegister ( req: any, res: any, next: any): any{
   try{
-    const { email, pswd, pswd2 } = req.body;
-    if( email === '' || pswd === '' || pswd2 === '' ) throw 'Faltan campos requeridos'
-    if( ! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email) ) throw 'El correo esta mal ingresado';
+    const { usercode, pswd, pswd2 } = req.body;
+    let pattern = /^[0-9]{7,10}$/g
+    if( usercode === '' || pswd === '' || pswd2 === '' ) throw 'Faltan campos requeridos'
+    if( ! pattern.test(usercode) ) throw 'El código de usuario esta mal ingresado';
     if( pswd.length < 8) throw 'La contraseña debe contener al menos 8 caracteres';
     if( checkType(pswd) !== '2') throw 'La contraseña debe contener al menos una mayúscula y una minúscula.'
     if( pswd !== pswd2) throw 'Las contraseñas no coinciden';
@@ -15,9 +16,10 @@ export function validateRegister ( req: any, res: any, next: any): any{
 
 export function validateCreateUser ( req: any, res: any, next: any): any{
   try{
-    const { email, password} = req.body;
-    if( email === '' || password === '') throw 'Faltan campos requeridos'
-    if( ! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email) ) throw 'El correo esta mal ingresado';
+    const { usercode, password} = req.body;
+    let pattern = /^[0-9]{7,10}$/g
+    if( usercode === '' || password === '') throw 'Faltan campos requeridos'
+    if( ! pattern.test(usercode) ) throw 'El correo esta mal ingresado';
     if( password.length < 8) throw 'La contraseña debe contener al menos 8 caracteres';
     if( checkType(password) !== '2') throw 'La contraseña debe contener al menos una mayúscula y una minúscula.'
     next();

@@ -1,0 +1,60 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content#admin-assignment(data-sample=sample data-analysts=analysts)
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.text-center
+              h1.mb-0  Muestra: {{sample.code}}
+              h3.mb-0  Matriz: {{sample.matrix}} 
+        .row
+          .col-12
+            .card
+              .card-body
+                .table-rep-plugin
+                  .table-wrapper
+                    .btn-toolbar
+                      .btn-group.pull-left.responsive
+                        .app-search.d-block.w-responsive
+                          .position-relative.w-responsive
+                            .col-12: .row
+                              h4.card-title.mt-0 Asignación de analistas
+                            .col-12: .row   
+                              h4.card-title.mt-0 Parámetros seleccionados: 
+                              h4.card-title.text-primary {{parameters.toString()}}
+                    .table-responsive-md.py-2
+                      table.table.table-hover
+                        thead
+                          tr
+                            th.fit(scope="col") #
+                            th.fit(scope="col") Cédula de identificación
+                            th(scope="col") Nombres y apellidos
+                            th(scope="col" colspan="2").text-center Parámetro
+
+                        tbody
+                          tr.cursor-pointer(v-for="(a, index) in analysts" :key="a._id")
+                            td(scope="row") 
+                              .custom-control.custom-checkbox
+                                input.custom-control-input(type='checkbox' :id="'checkbox-'+a._id" @click="selectAnalyst(index)" name="analistId" :value='a._id')
+                                label.custom-control-label(:for="'checkbox-'+a._id")
+                            td {{a.document}}
+                            td {{a.name}} {{a.lastName}}
+                            td(v-if="sample.matrix=='Agua'") 
+                              .custom-control.custom-checkbox: .row.justify-content-evenly
+                                .col-3(v-for="(w, i) in a.waterPermits")
+                                    input.custom-control-input(type='checkbox' :id="'checkbox-'+w+'-'+i+'-'+a._id" @click="selectParameter($event,index,i)"  name="waterPermits" :value='w')
+                                    label.custom-control-label(:for="'checkbox-'+w+'-'+i+'-'+a._id") {{w}}
+                            td(v-else-if="sample.matrix=='Suelo'")
+                              .custom-control.custom-checkbox: .row.justify-content-evenly
+                                .col-xl-2.col-lg-3.col-md-4.col-auto(v-for="(g, i) in a.groundPermits")
+                                  input.custom-control-input(type='checkbox' :id="'checkbox-'+g+'-'+i+'-'+a._id"  @click="selectParameter($event,index,i)" name="groundPermits" :value='g')
+                                  label.custom-control-label(:for="'checkbox-'+g+'-'+i+'-'+a._id") {{g}}
+                    .form-group.mb-0
+                      .row.justify-content-center
+                        a.btn.btn-primary.text-white(@click="saveAssignment()") Asignar
+                        a.btn.btn-secondary.m-l-5.ml-1(href='/admin/muestras') Volver

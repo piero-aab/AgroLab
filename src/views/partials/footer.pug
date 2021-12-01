@@ -1,12 +1,96 @@
-footer.footer
-  .container-fluid
+footer.site-footer
+  img.site-footer__shape-1(src='/images/icons/video-bg-1-1.png' alt='')
+  img.site-footer__shape-2(src='/images/icons/footer-bg-icon-2.png' alt='')
+  .container
     .row
-      .col-sm-6
-        script.
-          document.write(new Date().getFullYear())
-        |  &copy; Nazox.
-      .col-sm-6
-        .text-sm-right.d-none.d-sm-block
-          | Crafted with
-          i.mdi.mdi-heart.text-danger
-          |  by Themesdesign
+      .col-sm-12.col-md-6.col-lg-4.col-xl-3
+        .footer-widget
+          a.footer-widget__Logo(href='')
+            img(src='/images/agroambiental/logp-agro-blanco-v2.png' width='153' alt='')
+          p(style="line-height: 1.5;")
+            | Laboratorio con calidad y experiencia apoyando a sus clientes con tecnología de punta.
+          hr
+          .mc-form__response
+          // /.mc-form__response
+          .footer__social
+            a.fab.fa-facebook-square(href='https://www.facebook.com/Agroambiental-Lab-321711021361920' target="_blank")
+            a.fab.fa-instagram(href='https://www.instagram.com/agroam1/' target="_blank")
+          // /.topbar__social
+        // /.footer-widget
+      // /.col-sm-12 col-md-6 col-lg-4
+      .col-sm-12.col-md-6.col-lg-8.col-xl-6
+        .footer-widget.mb-0
+          h3.footer-widget__title Matrices
+          // /.footer-widget__title
+          .row
+            .col-lg-12.col-xl-6
+              ul.list-unstyled.footer-widget__post
+                li
+                  img(src='/images/landing/services/1.webp' alt='')
+                  .footer-widget__post-content
+                    h4(style="line-height: 1.5;")
+                      a(href='/servicios?index=0') ANÁLISIS EN SUELOS CON FINES AGRÍCOLAS
+                li
+                  img(src='/images/landing/services/2.webp' alt='')
+                  .footer-widget__post-content
+                    h4(style="line-height: 1.5;")
+                      a(href='/servicios?index=2') ANÁLISIS EN AGUAS
+            .col-lg-12.col-xl-6.d-none.d-xl-block
+              ul.list-unstyled.footer-widget__post  
+                li
+                  img(src='/images/landing/services/3.webp' alt='')
+                  .footer-widget__post-content
+                    h4(style="line-height: 1.5;")
+                      a(href='/servicios?index=1') ANÁLISIS EN TEJIDO VEGETAL
+                li
+                  img(src='/images/landing/services/4.webp' alt='')
+                  .footer-widget__post-content
+                    h4(style="line-height: 1.5;")
+                      a(href='/servicios?index=3') ANÁLISIS EN ABONOS ORGÁNICOS Y FERTILIZANTES
+          // /.list-unstyled
+        // /.footer-widget
+      .col-sm-12.col-md-6.col-lg-8.col-xl-6.d-xl-none.order-md-2
+        .footer-widget
+          .row.mt-3
+            .col-lg-12
+              ul.list-unstyled.footer-widget__post  
+                li
+                  img(src='/images/landing/services/3.webp' alt='')
+                  .footer-widget__post-content
+                    h4(style="line-height: 1.5;")
+                      a(href='/servicios?index=1') ANÁLISIS EN TEJIDO VEGETAL
+                li
+                  img(src='/images/landing/services/4.webp' alt='')
+                  .footer-widget__post-content
+                    h4(style="line-height: 1.5;")
+                      a(href='/servicios?index=3') ANÁLISIS EN ABONOS ORGÁNICOS Y FERTILIZANTES
+          // /.list-unstyled
+        // /.footer-widget
+      .col-sm-12.col-md-6.col-lg-4.col-xl-3.order-md-1
+        h3.footer-widget__title Contacto
+        // /.footer-widget__title
+        ul.list-unstyled.footer-widget__contact
+          li
+            i.fab.fa-whatsapp
+            a.cursor-pointer(style="line-height: 1.5;" onclick=`link(573168718691,'¡Hola!, quiero más información sobre los servicios que ofrecen actualmente Agroambiental.')` target='_blank') 316 871 8691
+          li
+            i.agrikon-icon-email
+            a(href='mailto:info@agroambiental-lab.com' style="line-height: 1.5;") info@agroambiental-lab.com
+          li
+            i.agrikon-icon-pin
+            a(href='javascript:void(0)' style="line-height: 1.5;")
+              | Km 3 Vía La Unión - La Victoria
+              | Dentro del Centro Administrativo ASORUT
+              | Casa 2
+
+        // /.list-unstyled
+      // /.col-sm-12 col-md-6 col-lg-3
+    // /.row
+  // /.container
+// /.site-footer
+.bottom-footer.py-3
+  .container
+    p &copy; Copyright 2021
+  // /.container
+// /.bottom-footer
+// /.page-wrapper

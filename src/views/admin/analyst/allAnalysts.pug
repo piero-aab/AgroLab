@@ -1,0 +1,56 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content#admin-analysts(data-analysts=analysts data-emails=emails data-documents=documents)
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Lista de analistas
+        .row
+          .col-12
+            .card
+              .card-body
+                .table-rep-plugin
+                  .table-wrapper
+                    .btn-toolbar
+                      .btn-group.pull-right(style="padding: calc(32px / 2) 0")
+                        button.btn.btn-primary( @click="createAnalyst()") 
+                          | Crear analista 
+                          i.fas.fa-user-plus.align-middle.ml-2.mb-1
+                    .table-responsive-md.py-2
+                      table.table
+                        thead
+                          tr
+                            th(scope="col") Código
+                            th(scope="col") Nombres y apellidos
+                            th(scope="col") Correo electrónico
+                            th(scope="col") N° de permisos
+                            th(scope="col") 
+                        tbody
+                          tr(v-for="(a, index) in displayedAnalysts" :key="a._id")
+                            td(scope="row") {{paddedCode(a.code)}}
+                            td {{a.name}} {{a.lastName}}
+                            td {{a.email}}
+                            td {{a.waterPermits && a.groundPermits?a.waterPermits.length+a.groundPermits.length:0}}
+                            td 
+                              button.btn.btn-info(@click="editAnalyst(a)")
+                                i.far.fa-edit.align-middle.mr-1.mb-1
+                                | Editar analista
+                      h3.text-center(v-if="displayedAnalysts.length==0 && name!=''") Su búsqueda no coincidió
+                      h3.text-center(v-else-if="analystsOrigin.length==0 && name==''") Aún no ha registrado analistas
+                    .col-12(v-if="displayedAnalysts.length>0" )
+                      ul.pagination.pagination-rounded.mb-sm-0.justify-content-center
+                        li.page-item
+                          a.page-link( v-if="page != 1" @click="page--")
+                            i.mdi.mdi-chevron-left
+                        li.page-item(:class="page == pageNumber? 'active':'' " v-for="pageNumber in pages.slice(page==1?page-1:page-2, page==1?page+4:page+3)" @click="page = pageNumber" :key="pageNumber")
+                          a.page-link {{pageNumber}}
+                        li.page-item
+                          a.page-link(@click="page++" v-if="page < pages.length")
+                            i.mdi.mdi-chevron-right
+                            

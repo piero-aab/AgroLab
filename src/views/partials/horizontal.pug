@@ -3,126 +3,39 @@ header#page-topbar
     .d-flex
       // LOGO
       .navbar-brand-box.d-block
-        a.logo.logo-dark(href='/admin/panel')
+        a.logo.logo-dark(href= ( user && user.type== 0) ? '/admin/panel' : ( (user && user.type == 1) ? '/analista/muestras' : '/secretaria/muestras'))
           span.logo-sm
-            img(src='/images/invenio/logo-color.svg', alt='', height='35')
+            img(src='/images/agroambiental/logo-agroambiental.png', alt='', height='45')
           span.logo-lg
-            img(src='/images/invenio/logo-color.svg', alt='', height='30')
-        a.logo.logo-light(href='/admin/panel')
+            img(src='/images/agroambiental/logo-agroambiental.png', alt='', height='40')
+        a.logo.logo-light(href= ( user && user.type== 0) ? '/admin/panel' : ( (user && user.type == 1) ? '/analista/muestras' : '/secretaria/muestras'))
           span.logo-sm
-            img(src='/images/invenio/logo-color.svg', alt='', height='35')
+            img(src='/images/agroambiental/logo-agroambiental.png', alt='', height='45')
           span.logo-lg
-            img(src='/images/invenio/logo-color.svg', alt='', height='30')
-      // button.btn.btn-sm.px-3.font-size-24.d-lg-none.header-item(type='button', data-toggle='collapse', data-target='#topnav-menu-content')
-        i.ri-menu-2-line.align-middle
-      // App Search
-      //form.app-search.d-none.d-lg-block
-        .position-relative
-          input.form-control(type='text', placeholder='Search...')
-          span.ri-search-line
-      // .dropdown.dropdown-mega.d-none.d-lg-block.ml-2
-        button.btn.header-item.waves-effect(type='button', data-toggle='dropdown', aria-haspopup='false', aria-expanded='false')
-          | Mega Menu
-          i.mdi.mdi-chevron-down
-        .dropdown-menu.dropdown-megamenu
-          .row
-            .col-sm-8
-              .row
-                .col-md-4
-                  h5.font-size-14.mt-0 UI Components
-                  ul.list-unstyled.megamenu-list
-                    li
-                      a(href='javascript:void(0);') Lightbox
-                    li
-                      a(href='javascript:void(0);') Range Slider
-                    li
-                      a(href='javascript:void(0);') Sweet Alert
-                    li
-                      a(href='javascript:void(0);') Rating
-                    li
-                      a(href='javascript:void(0);') Forms
-                    li
-                      a(href='javascript:void(0);') Tables
-                    li
-                      a(href='javascript:void(0);') Charts
-                .col-md-4
-                  h5.font-size-14.mt-0 Applications
-                  ul.list-unstyled.megamenu-list
-                    li
-                      a(href='javascript:void(0);') Ecommerce
-                    li
-                      a(href='javascript:void(0);') Calendar
-                    li
-                      a(href='javascript:void(0);') Email
-                    li
-                      a(href='javascript:void(0);') Projects
-                    li
-                      a(href='javascript:void(0);') Tasks
-                    li
-                      a(href='javascript:void(0);') Contacts
-                .col-md-4
-                  h5.font-size-14.mt-0 Extra Pages
-                  ul.list-unstyled.megamenu-list
-                    li
-                      a(href='javascript:void(0);') Light Sidebar
-                    li
-                      a(href='javascript:void(0);') Compact Sidebar
-                    li
-                      a(href='javascript:void(0);') Horizontal layout
-                    li
-                      a(href='javascript:void(0);') Maintenance
-                    li
-                      a(href='javascript:void(0);') Coming Soon
-                    li
-                      a(href='javascript:void(0);') Timeline
-                    li
-                      a(href='javascript:void(0);') FAQs
-            .col-sm-4
-              .row
-                .col-sm-6
-                  h5.font-size-14.mt-0 UI Components
-                  ul.list-unstyled.megamenu-list
-                    li
-                      a(href='javascript:void(0);') Lightbox
-                    li
-                      a(href='javascript:void(0);') Range Slider
-                    li
-                      a(href='javascript:void(0);') Sweet Alert
-                    li
-                      a(href='javascript:void(0);') Rating
-                    li
-                      a(href='javascript:void(0);') Forms
-                    li
-                      a(href='javascript:void(0);') Tables
-                    li
-                      a(href='javascript:void(0);') Charts
-                .col-sm-5
-                  div
-                    img.img-fluid.mx-auto.d-block(src='/images/megamenu-img.png', alt='')
-    if user 
-      .d-flex.justify-content-end 
-        .dropdown.d-inline-block.user-dropdown
-          button#page-header-user-dropdown.btn.header-item.waves-effect(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-            // img.rounded-circle.header-profile-user(src='/images/users/avatar-2.jpg', alt='Header Avatar')
-            span.d-inline-block.ml-1 #{ user.name }
-            i.mdi.mdi-chevron-down.d-none.d-xl-inline-block
-          .dropdown-menu.dropdown-menu-right
-            // item
-            // a.dropdown-item(href='#')
-              i.ri-user-line.align-middle.mr-1
-              |  Profile
-            // a.dropdown-item(href='#')
-              i.ri-wallet-2-line.align-middle.mr-1
-              |  My Wallet
-            // a.dropdown-item.d-block(href='#')
-              span.badge.badge-success.float-right.mt-1 11
-              i.ri-settings-2-line.align-middle.mr-1
-              |  Settings
+            img(src='/images/agroambiental/logo-agroambiental.png', alt='', height='40')
+    
+    .d-flex.justify-content-end 
+      .dropdown.d-inline-block.user-dropdown
+        button#page-header-user-dropdown.btn.header-item.waves-effect(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+          img.rounded-circle.header-profile-user(src='/images/agroambiental/agro-user.png', alt='Header Avatar')
+          //span.d-inline-block.ml-1 #{ user.name }
+          i.mdi.mdi-chevron-down.d-none.d-xl-inline-block
+        .dropdown-menu.dropdown-menu-right
+          if user && user.type==0
             a.dropdown-item(href='/admin/panel')
               i.ri-profile-line.align-middle.mr-1
               |  Panel
             .dropdown-divider
-            a.dropdown-item.text-danger(href='/salir')
-              i.ri-shut-down-line.align-middle.mr-1.text-danger
-              |  Salir
-   
+          if user && user.type==1
+            a.dropdown-item(href='/analista/muestras')
+              i.ri-profile-line.align-middle.mr-1
+              |  Muestras
+            .dropdown-divider
+          else if user && user.type==2
+            a.dropdown-item(href='/secretaria/muestras')
+              i.ri-profile-line.align-middle.mr-1
+              |  Muestras
+            .dropdown-divider
+          a.dropdown-item.text-danger(href='/salir')
+            i.ri-shut-down-line.align-middle.mr-1.text-danger
+            |  Salir

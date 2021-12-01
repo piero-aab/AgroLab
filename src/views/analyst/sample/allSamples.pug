@@ -1,0 +1,54 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content#analyst-samples(data-samples=samples)
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Lista de muestras
+        .row
+          .col-12
+            .card
+              .card-body
+                .table-rep-plugin
+                  .table-wrapper
+                    .btn-toolbar
+                      .btn-group.pull-left.responsive
+                        .app-search.d-block.w-responsive
+                          .position-relative.w-responsive
+                            input.form-control.search--responsive.w-responsive(type='text',v-model="name" placeholder='Buscar por fecha de ingreso')
+                            span.ri-search-line
+                    .table-responsive-md.py-2
+                      table.table.table-hover
+                        thead
+                          tr
+                            th(scope="col") Código de muestra
+                            th(scope="col") Fecha de ingreso
+                            th(scope="col") Fecha de entrega de resultados
+                            th(scope="col") Matriz
+                            th(scope="col") Tipo de análisis
+                        tbody
+                          //- tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
+                          tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
+                            td(scope="row") {{s.code}}
+                            td {{setTime(s.date)}}
+                            td {{setNormalTime(s.resultsDeliveryDate)}}
+                            td {{s.matrix}}
+                            td {{s.analysisType}}
+                      h3.text-center(v-if="displayedSamples.length==0 && name!=''") Su búsqueda no coincidió
+                      h3.text-center(v-else-if="samplesOrigin.length==0 && name==''") Usted no tiene muestras asignadas aún
+                    .col-12(v-if="displayedSamples.length>0" )
+                      ul.pagination.pagination-rounded.mb-sm-0.justify-content-center
+                        li.page-item
+                          a.page-link( v-if="page != 1" @click="page--")
+                            i.mdi.mdi-chevron-left
+                        li.page-item(:class="page == pageNumber? 'active':'' " v-for="pageNumber in pages.slice(page==1?page-1:page-2, page==1?page+4:page+3)" @click="page = pageNumber" :key="pageNumber")
+                          a.page-link {{pageNumber}}
+                        li.page-item
+                          a.page-link(@click="page++" v-if="page < pages.length")
+                            i.mdi.mdi-chevron-right

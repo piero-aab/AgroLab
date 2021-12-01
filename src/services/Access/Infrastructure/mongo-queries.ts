@@ -16,6 +16,18 @@ export class mongo implements databaseDAO {
     }
   }
 
+  public async existUserCode(usercode: string): Promise<boolean> { 
+    try{
+      const database = getConection();
+      const collection = database.db.collection('users');
+      let exists:boolean = await collection.find({document: usercode}).count() > 0;
+      return exists;
+    }catch(error){
+      console.log(error)
+      throw "Error interno, intentelo más tarde.";
+    }
+  }
+
   public async existToken(token: string): Promise<boolean> { 
     try{
       const database = getConection();
@@ -54,12 +66,12 @@ export class mongo implements databaseDAO {
     }
   }
 
-  public async createUser(email: string, password: string): Promise<any>{
+  public async createUser(usercode: string, password: string): Promise<any>{
     try{
       const database = getConection();
       const collection = database.db.collection('users');
       let newUser = await collection.insertOne({
-        email: email,
+        document: usercode,
         password: password,
         type: 0
       });
@@ -86,7 +98,6 @@ export class mongo implements databaseDAO {
           }
         }, { projection:{ emailToken: 1, _id: 0 }, returnOriginal: false }
       );
-
       return user.value.emailToken;
     }catch(error){
       console.log(error)

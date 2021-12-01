@@ -1,0 +1,144 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Registro de muestra
+        .row
+          .col-12
+            .card
+              .card-body
+                form.custom-validation(method='post')
+                  .row
+                    .col-md-6
+                      .form-group
+                        label(for='code') Número de código
+                        input#code.form-control(type='text' name='code' value=code readonly)
+                      .form-group
+                        label(for='documentType') Seleccione el tipo de documento *
+                        select#documenType.custom-select(name='documentType' required)
+                          option(value='') Tipo de documento
+                          option(value='1') N° de cédula
+                          option(value='2') N° de NIT
+                        //.invalid-feedback
+                          | Por favor ingrese un tipo de documento válido
+                      .form-group
+                        label(for='document') Ingresa el número de cédula o NIT *
+                        input#document.form-control(type='text' name='document' oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength="7" maxlength="10" placeholder='Número de cédula o NIT' required='')
+                        //.invalid-feedback
+                          | Por favor ingrese un número de cédula o NIT válido
+                      .form-group
+                        label(for='name') Nombre del cliente o razón social *
+                        input#name.form-control(type='text' name='name' placeholder='Nombre del cliente o razón social' maxlength="30" required='')
+                        //.invalid-feedback
+                          | Por favor ingrese un nombre del cliente o razón social válido
+                      .form-group
+                        label(for='address') Dirección *
+                        input#address.form-control(type='text' name='address' maxlength="50" placeholder='Dirección' required='')
+                        //.invalid-feedback
+                          | Por favor ingrese una dirección válida.
+                      .form-group
+                        label(for='firstEmail') Correo eléctronico *
+                        input#firstEmail.form-control(type='email' name='firstEmail' parsley-type="email" placeholder='Correo eléctronico' required='')
+                        //.invalid-feedback
+                          | Por favor ingrese un correo eléctronico válido.
+                      .form-group
+                        label(for='secondEmail') Segundo correo eléctronico
+                        input#secondEmail.form-control(type='email' name='secondEmail' parsley-type="email" placeholder='Segundo correo eléctronico')
+                        //.invalid-feedback
+                          | Por favor ingrese un segundo correo eléctronico válido.
+                      .form-group
+                        label(for='applicant') ¿Quién trajo la muestra? *
+                        input#applicant.form-control(type='text' name='applicant' maxlength="30" placeholder='¿Quién trajo la muestra?' required='')
+                      .form-group
+                        label(for='firstPhone') Ingresa número de teléfono *
+                        input#firstPhone.form-control(type='text' name='firstPhone' placeholder='Número de teléfono' required='')
+                      .form-group
+                        label(for='secondPhone') Ingresa 2° número de teléfono
+                        input#secondPhone.form-control(type='text' name='secondPhone' placeholder='Segundo número de teléfono')
+                      .form-group
+                        label(for='resultsDeliveryDate') Fecha estimada de entrega de resultados *
+                        -
+                          let today=new Date()
+                          let todayYear=today.getFullYear()
+                          let todayMonth=today.getMonth()+1
+                          let todayDay=today.getDate()
+                          if (todayDay.toString().length==1) todayDay="0"+todayDay
+                          if (todayMonth.toString().length==1) todayMonth="0"+todayMonth
+                          let todayDate=`${todayYear}-${todayMonth}-${todayDay}`
+                        input#resultsDeliveryDate.form-control(type='date' name='resultsDeliveryDate' min=todayDate required='')
+                      .form-group
+                        label(for='ourSample') ¿Agroambiental tomó la muestra? *
+                        select#ourSample.custom-select(name='ourSample' required)
+                          option(value='') ¿Agroambiental tomó la muestra?
+                          option(value='1') Si
+                          option(value='2') No
+                      .form-group
+                        label(for='matrix') Ingresa la matriz *
+                        select#matrix.custom-select(name='matrix' required)
+                          option(value='') Matriz
+                          option(value='Agua') Agua
+                          option(value='Suelo') Suelo
+                          option(value='Tejido vegetal') Tejido vegetal
+                          option(value='Fertilizante') Fertilizante
+                          option(value='Abono orgánico') Abono orgánico
+                          option(value='Acondicionador de suelo') Acondicionador de suelo
+                    .col-md-6
+                      .form-group
+                        label(for='analysisType') Tipo de análisis *
+                        select#analysisType.custom-select(name='analysisType' required)
+                          option(value='') Tipo de análisis
+                          option(value='Análisis físico químico') Análisis físico químico
+                          option(value='Análisis físico') Análisis físico
+                          option(value='Análisis microbiológico') Análisis microbiológico
+                          option(value='Análisis fitopatológico') Análisis fitopatológico
+                          option(value='Análisis acreditado') Análisis acreditado
+                          option(value='Análisis ICA') Análisis ICA
+                      .form-group
+                        label(for='cropType') Tipo de cultivo *
+                        input#cropType.form-control(type='text' name='cropType' placeholder='Tipo de cultivo' required='')
+                      .form-group
+                        label(for='cropAge') Edad de cultivo *
+                        input#cropAge.form-control(type='text' name='cropAge' placeholder='Edad de cultivo' required='')
+                      .form-group
+                        label(for='masl') Altura msnm *
+                        input#masl.form-control(type='number' name='masl' placeholder='Altura msnm' min="0" max="10000" onchange="this.value = parseFloat(this.value).toFixed(2);" step=".01" required='')
+                      .form-group
+                        label(for='samplingDate') Fecha de toma de la muestra *
+                        input#samplingDate.form-control(type='date' name='samplingDate' max=todayDate required='')
+                      .form-group
+                        label(for='depthSample') Profundidad de la toma de muestras *
+                        input#depthSample.form-control(type='text' name='depthSample' placeholder='Profundidad' required='')
+                      .form-group
+                        label(for='farmName') Nombre de la finca *
+                        input#farmName.form-control(type='text' name='farmName' placeholder='Nombre de la finca' required='')
+                      .form-group
+                        label(for='cropAddress') Ubicación del predio *
+                        input#cropAddress.form-control(type='text' name='cropAddress' maxlength="50" placeholder='Ubicación del predio' required='')
+                      .form-group
+                        label(for='village') Vereda o Corregimiento *
+                        input#village.form-control(type='text' name='village' placeholder='Vereda o corregimiento' required='')
+                      .form-group
+                        label(for='municipality') Municipio *
+                        input#municipality.form-control(type='text' name='municipality' placeholder='Municipio' required='')
+                      .form-group
+                        label(for='country') País *
+                        input#country.form-control(type='text' name='country' placeholder='País' required='')
+                      .form-group
+                        label(for='observation') Observación
+                        div
+                          textarea#observation.form-control(name='observation' rows='5' maxlength="200")
+                  .form-group.mt-2
+                    div(style='display:flex; justify-content:center;')
+                      button.btn.btn-primary.waves-effect.waves-light.mr-1(type='submit')
+                        | Registrar
+                      button.btn.btn-secondary.waves-effect(style='margin: 0 0 0 16px;' type="button" onclick=`confirmReturn('¿Desea perder los cambios?',' ','/secretaria/muestras')`)
+                        | Volver
+

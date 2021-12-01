@@ -1,8 +1,8 @@
 import { repository } from '../Domain/repository';
 
-export default async function (email: string): Promise<string> {
+export default async function (email : string): Promise<string> {
   try{
-    const exits = await repository.existEmail( email );
+    const exits = await repository.existEmail(email);
     if( !exits ) throw "El correo ingresado no esta registrado en la plataforma.";
     
     const response = await saveNewTokenInUserAccount(email);

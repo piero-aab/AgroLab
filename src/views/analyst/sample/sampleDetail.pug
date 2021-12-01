@@ -1,0 +1,106 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content#sampleDetail(data-samples=sampleDetail, data-user=user_id, data-parameters=parametersUnits)
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Detalle de la muestra
+          .col-12
+            .card
+              .card-body
+                .row.justify-content-center
+                  .col-xl-5.col-md-6
+                    .mt-2
+                      .form-group
+                        label(for='code') Código de muestra: 
+                        input#code.form-control(type='text' name='code' value=sampleDetail.code readonly)
+                      .form-group
+                        label(for='date') Fecha de ingreso:
+                        -
+                          function setTime(date){
+                            var newDate = new Date(date)
+                            newDate.setHours(newDate.getHours());
+                            return   newDate.getDate() + "-" + (newDate.getMonth() + 1).toString().padStart(2, "0") + "-" + newDate.getFullYear()
+                          }
+                        input#date.form-control(type='text' name='date' value=setTime(sampleDetail.date) readonly)
+                      .form-group
+                        label(for='resultsDeliveryDate') Fecha de entrega de resultados:
+                        -
+                          function setNormalTime(date){
+                            var newDate = new Date(date)
+                            newDate.setHours(newDate.getHours() + 5);
+                            return   newDate.getDate() + "-" + (newDate.getMonth() + 1).toString().padStart(2, "0") + "-" + newDate.getFullYear()
+                          }
+                        input#resultsDeliveryDate.form-control(type='text' name='resultsDeliveryDate' value=setNormalTime(sampleDetail.resultsDeliveryDate) readonly)
+                  .col-xl-5.offset-xl-1.col-md-6
+                    .mt-2
+                      .form-group
+                        label(for='matrix') Matriz:
+                        input#matrix.form-control(type='text' name='matrix' value=sampleDetail.matrix readonly)
+                      .form-group
+                        label(for='analysisType') Tipo de análisis:
+                        input#analysisType.form-control(type='text' name='analysisType' value=sampleDetail.analysisType readonly)
+                      .form-group
+                        label(for='cropType') Tipo de cultivo:
+                        input#cropType.form-control(type='text' name='cropType' value=sampleDetail.cropType readonly)
+          .col-12
+            .card
+              .card-body
+                .table-rep-plugin
+                  .table-wrapper
+                    //.btn-toolbar
+                      .btn-group.pull-left.responsive
+                        .app-search.d-block.w-responsive
+                          .position-relative.w-responsive
+                            input.form-control.search--responsive.w-responsive(type='text',v-model="name" placeholder='Buscar por fecha de ingreso')
+                            span.ri-search-line
+                    .table-responsive-md.py-2
+                      table.table.table-hover
+                        thead
+                          tr
+                            th(scope="col") Nombre del parametro
+                            th(scope="col") Resultado
+                            th(scope="col") Unidades
+                            th(scope="col") Fecha de ingreso de parámetro
+                            th(scope="col") Estado
+                            th(scope="col") Opciones
+                        tbody
+                          //- tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
+                          tr(v-for="(p, index) in parameters")
+                            td(scope="row") {{p.name}}
+                            td(scope="row") {{p.result}}
+                            td(scope="row") 
+                              span.units(v-html='p.units') 
+                            td(scope="row") {{p.deliveryDate}}
+                            td(v-if="p.index != -1") 
+                              span(v-html="getStatus(p.status)")
+                            td(v-else)
+                            td(v-if="p.index != -1") 
+                              button.btn.btn-info(v-if='p.status==0' @click.prevent='openParameter(p.index)') 
+                                i.fas.fa-pen.align-middle.mr-1.mb-1
+                                | Ingresar valores
+                              button.btn.btn-info(v-else @click.prevent='openEditParameter(p.index)' style='min-width:151.24px') 
+                                i.fas.fa-edit.align-middle.mr-1.mb-1
+                                | Editar valores
+                            td(v-else)
+        .row
+          .col-12
+            .card
+              .card-body
+                .form-group.mt-2
+                  div(style='display:flex; justify-content:center;')
+                    button.btn.btn-primary.waves-effect.waves-light.mr-1(type='button' @click=`sendResults()`)
+                      | Enviar Resultados
+                    a.btn.btn-secondary.waves-effect(style='margin: 0 0 0 16px;' href='/analista/muestras')
+                      | Volver 
+  style(scoped='').
+    .units p {
+      margin: 0;
+      font-size: 16px
+    }

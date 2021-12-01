@@ -1,0 +1,129 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Informe final
+          .col-12
+            .card
+              .card-body
+                .row.justify-content-center
+                  .col-xl-5.col-md-6
+                    .mt-2
+                      .form-group
+                        label(for='code') Código de muestra: 
+                        input#code.form-control(type='text' name='code' value=sample.code||'-' readonly)
+                      .form-group
+                        label(for='matrix') Matriz:
+                        input#matrix.form-control(type='text' name='matrix' value=sample.matrix||'-' readonly)
+                      .form-group
+                        label(for='analysisType') Tipo de análisis:
+                        input#analysisType.form-control(type='text' name='analysisType' value=sample.analysisType||'-' readonly)
+                      .form-group
+                        label(for='cropType') Tipo de cultivo:
+                        input#cropType.form-control(type='text' name='cropType' value=sample.cropType||'-' readonly)
+                      .form-group
+                        label(for='cropAge') Edad de cultivo:
+                        input#cropAge.form-control(type='text' name='cropAge' value=sample.cropAge||'-' readonly)
+                      .form-group
+                        label(for='masl') Altura msnm :
+                        input#masl.form-control(type='text' name='masl' value=sample.masl||'-' readonly)
+                      .form-group
+                        -
+                          function formatDate(date){
+                            let d = new Date(date)
+                            d.setHours(d.getHours() + 5);
+                            let dateYear=d.getFullYear()
+                            let dateMonth=d.getMonth()+1
+                            let dateDay=d.getDate()
+                            if (dateDay.toString().length==1) dateDay="0"+dateDay
+                            if (dateMonth.toString().length==1) dateMonth="0"+dateMonth
+                            return `${dateYear}-${dateMonth}-${dateDay}`
+                          }
+                        labellabel(for='samplingDate') Fecha de toma de la muestra:
+                        input#samplingDate.form-control(type='text' name='samplingDate' value=formatDate(sample.samplingDate) readonly)
+                      .form-group
+                        label(for='depthSample') Profundidad de la toma de muestras:
+                        input#depthSample.form-control(type='text' name='depthSample' value=sample.depthSample||'-' readonly)
+                      .form-group
+                        label(for='farmName') Nombre de la finca:
+                        input#farmName.form-control(type='text' name='farmName' value=sample.farmName||'-' readonly)
+                      .form-group
+                        label(for='cropAddress') Ubicación del predio:
+                        input#cropAddress.form-control(type='text' name='cropAddress' value=sample.cropAddress||'-' readonly)
+                      .form-group
+                        label(for='village') Vereda o Corregimiento:
+                        input#village.form-control(type='text' name='village' value=sample.village||'-' readonly)
+                      .form-group
+                        label(for='municipality') Municipio:
+                        input#municipality.form-control(type='text' name='municipality' value=sample.municipality||'-' readonly)
+                      .form-group
+                        label(for='country') País:
+                        input#country.form-control(type='text' name='country' value=sample.country||'-' readonly)   
+                  .col-xl-5.offset-xl-1.col-md-6
+                    .mt-2
+                      .form-group
+                        label(for='documentType') Tipo de documento:
+                        input#documentType.form-control(type='text' name='documentType' value=sample.client.documentType==1?'N° de cédula':'N° de NIT' readonly)
+                      .form-group
+                        label(for='document') Número de cédula o NIT:
+                        input#document.form-control(type='text' name='document' value=sample.client.document||'-' readonly)
+                      .form-group
+                        label(for='name') Nombre del cliente o razón social:
+                        input#name.form-control(type='text' name='name' value=sample.client.name||'-' readonly)
+                      .form-group
+                        label(for='address') Dirección:
+                        input#address.form-control(type='text' name='address' value=sample.client.address||'-' readonly)
+                      .form-group
+                        label(for='firstEmail') Correo eléctronico:
+                        input#firstEmail.form-control(type='text' name='firstEmail' value=sample.client.firstEmail||'-' readonly)
+                      .form-group
+                        label(for='secondEmail') Segundo correo eléctronico:
+                        input#secondEmail.form-control(type='text' name='secondEmail' value=sample.client.secondEmail||'-' readonly)
+                      .form-group
+                        label(for='applicant') ¿Quién trajo la muestra?:
+                        input#applicant.form-control(type='text' name='applicant' value=sample.client.name||'-' readonly)
+                      .form-group
+                        label(for='firstPhone') 1° número de teléfono:
+                        input#firstPhone.form-control(type='text' name='firstPhone' value=sample.client.firstPhone||'-' readonly)
+                      .form-group
+                        label(for='secondPhone') 2° número de teléfono:
+                        input#secondPhone.form-control(type='text' name='secondPhone' value=sample.client.secondPhone||'-' readonly)
+                      .form-group
+                        label(for='resultsDeliveryDate') Fecha estimada de entrega de resultados:
+                        input#resultsDeliveryDate.form-control(type='text' name='resultsDeliveryDate' value=value=formatDate(sample.resultsDeliveryDate) readonly)
+          .col-12#analystResults(data-results=sample.assigments data-matrix=sample.matrix data-analyst=sample.analysts)
+            .card
+              .card-body: .row.justify-content-center: .col-md-10
+                .table-rep-plugin
+                  .table-wrapper
+                    .table-responsive-xl.py-2
+                      h2(v-if='results == null' style='text-align: center;') Usted no ha asignado analistas aún
+                      table.table.table-hover(v-else)
+                        thead
+                          tr
+                            th(scope="col") Nombre del párametro
+                            th(scope="col") Nombre del analista
+                            th(scope="col") Resultado
+                            th(scope="col") Unidades
+                            th(scope="col") Fecha de ingreso del parametro
+                        tbody
+                          tr(v-for="(r, index) in resultsFinal")
+                            td(scope="row") {{r.parameter}} 
+                            td(scope="row") {{r.analyst}}
+                            td(v-if='r.parameter == "Textura" && matrix=="Suelo"' scope="row")
+                            td(v-else scope="row") {{r.result}}
+                            td(scope="row") 
+                              span.units(v-html='r.unit')
+                            td(scope="row") {{formatDate(r.deliveryDate)}}
+                .form-group.mt-2
+                  div(style='display:flex; justify-content:center; margin-top:30px')
+                    a.btn.btn-secondary.waves-effect(style='margin: 0 0 0 16px;' href='/admin/muestras')
+                      | Volver 

@@ -1,0 +1,68 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content#admin-samples(data-samples=samples data-documents=documents)
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Lista de muestras
+        .row
+          .col-12
+            .card
+              .card-body
+                .table-rep-plugin
+                  .table-wrapper
+                    .btn-toolbar
+                      .btn-group.pull-left.responsive
+                        .app-search.d-block.w-responsive
+                          .position-relative.w-responsive
+                            input.form-control.search--responsive.w-responsive(type='text',v-model="name" placeholder='Buscar por número de cédula del cliente o el código de la muestra')
+                            span.ri-search-line
+                    .table-responsive-md.py-2
+                      table.table.table-hover
+                        thead
+                          tr
+                            th(scope="col") Código de muestra
+                            th(scope="col") Fecha de ingreso
+                            th(scope="col") Matriz
+                            th(scope="col") N° de cédula del cliente
+                            th(scope="col") Nombre del cliente
+                            th(scope="col") Nombre del solicitante
+                            th(scope="col") Tipo de análisis
+                            th(scope="col" style="min-width:155px;") Estado
+                            th(scope="col" style="min-width:180px;") 
+
+                        tbody
+                          //- tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
+                          tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id")
+                            td(scope="row" @click.prevent='openSample(s._id)') {{s.code}}
+                            td(@click.prevent='openSample(s._id)') {{setTime(s.date)}}
+                            td(@click.prevent='openSample(s._id)') {{s.matrix}}
+                            td(@click.prevent='openSample(s._id)') {{s.client.document}}
+                            td(@click.prevent='openSample(s._id)') {{s.client.name}}
+                            td(@click.prevent='openSample(s._id)') {{s.applicant}}
+                            td(@click.prevent='openSample(s._id)') {{s.analysisType}} 
+                            td(@click.prevent='openSample(s._id)') 
+                              span(v-html="getStatus(s.status)")
+                            td 
+                              button.btn.btn-info(v-if="s.status<3" @click="assignAnalyst(s._id, s.matrix, s.status)") 
+                                i.fas.fa-user-plus.align-middle.mr-1.mb-1
+                                | Asignar analista
+                      h3.text-center(v-if="displayedSamples.length==0 && name!=''") Su búsqueda no coincidió
+                      h3.text-center(v-else-if="samplesOrigin.length==0 && name==''") Aún no se han registrado muestras
+                    .col-12(v-if="displayedSamples.length>0" )
+                      ul.pagination.pagination-rounded.mb-sm-0.justify-content-center
+                        li.page-item
+                          a.page-link( v-if="page != 1" @click="page--")
+                            i.mdi.mdi-chevron-left
+                        li.page-item(:class="page == pageNumber? 'active':'' " v-for="pageNumber in pages.slice(page==1?page-1:page-2, page==1?page+4:page+3)" @click="page = pageNumber" :key="pageNumber")
+                          a.page-link {{pageNumber}}
+                        li.page-item
+                          a.page-link(@click="page++" v-if="page < pages.length")
+                            i.mdi.mdi-chevron-right
+                        

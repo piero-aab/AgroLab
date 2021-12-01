@@ -1,0 +1,201 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content
+    .page-content
+      .container-fluid#createReport(data-results=sample.results data-matrix=sample.matrix)
+        #tbPrint
+          .row
+            .col-12#tprintTitle
+              .page-title-box.d-flex.align-items-center.justify-content-center
+                h1.mb-0  Informe final
+            .col-12.d-none.d-print-block: .card: .card-body: .row.justify-content-center 
+              .col-12
+                .table-rep-plugin.m-0.p-0
+                  .table-wrapper.m-0.p-0
+                    table.m-0.p-0
+                      tbody 
+                        tr
+                          th(scope="col" colspan="4") Nombre del cliente o Razón Social
+                          th(scope="col") Finca
+                          th(scope="col") Cultivo - Edad
+                          th(scope="col") Vereda / Corregimiento
+                          th(scope="col") Municipio, Departamento  
+                          th(scope="col") Informe de Laboratorio N◦
+                        tr
+                          td(scope="row" colspan="4") #{sample.client.name||'-'}
+                          td(scope="row") #{sample.farmName||'-'}
+                          td(scope="row") #{sample.cropAge||'-'}
+                          td(scope="row") #{sample.village||'-'}
+                          td(scope="row") #{sample.municipality||'-'}
+                          td(scope="row") #{sample.code||'-'}
+                        tr
+                          th(scope="col" colspan="4") Identificación de la muestra 
+                          th(scope="col") Fecha de toma 
+                          th(scope="col") Fecha ingreso al Lab.
+                          th(scope="col") Fecha de resultados
+                          th(scope="col") Análisis Solicitado
+                          th(scope="col") Código Laboratorio
+                        tr
+                          th(scope="row") a.s.n.m. 
+                            | (m)
+                          td(scope="row") #{sample.masl||'-'}
+
+                          th(scope="row") Profundidad 
+                            | (cm)
+                          td(scope="row") #{sample.depthSample||'-'}
+                          td(scope="row") #{formatDate(sample.samplingDate)||'-'}
+                          td(scope="row") #{formatDate(sample.date)||'-'}
+                          td(scope="row") #{formatDate(sample.resultsDeliveryDate)||'-'}
+                          td(scope="row") #{sample.analysisType||'-'}
+                          td(scope="row") #{sample.code||'-'}
+                .table-rep-plugin.m-0.p-0
+                  .table-wrapper.m-0.py-4
+                    table.p-0.mt-1(v-for="(c, i) in chunks")
+                      thead
+                        tr
+                          th(scope="col" :colspan="c.length+1") Resultados #{sample.analysisType||'-'}
+                      tbody
+                        tr
+                          th(scope="col") Parámetro
+                          th(scope="col" v-for="(r, index) in c" )
+                            span.m-0(v-html='splitName(r.name)')
+                        tr
+                          th(scope="row") Resultado
+                          td(scope="row" v-for="(r, index) in c") {{fixedTwo(r.finalResult)}}
+                        tr
+                          th(scope="row") Unidades
+                          td(scope="row" v-for="(r, index) in c")
+                            span.units.m-0(v-html='r.units')
+              .col-10.offset-1#imgBox
+                .row.justify-content-center 
+                  .col-12.d-flex.justify-content-center#imag1
+                    img.imageBox(src=sample.images[0], alt="")
+                  .col-10.d-flex.justify-content-center#imag2 
+                    img.imageBox(src=sample.images[1], alt="")
+                  .col-7.d-flex.justify-content-left#imag3
+                    img.imageBox(src=sample.images[2], alt="")
+                  .col-5.d-flex.justify-content-left#imag4
+                    img.imageBox(src=sample.images[3], alt="")
+          .col-12.d-print-none
+            .card
+              .card-body
+                .row.justify-content-center
+                  -
+                    function formatDate(date){
+                      let d = new Date(date)
+                      d.setHours(d.getHours() + 5);
+                      let dateYear=d.getFullYear()
+                      let dateMonth=d.getMonth()+1
+                      let dateDay=d.getDate()
+                      if (dateDay.toString().length==1) dateDay="0"+dateDay
+                      if (dateMonth.toString().length==1) dateMonth="0"+dateMonth
+                      return `${dateYear}-${dateMonth}-${dateDay}`
+                    }
+                  .col-xl-5.col-md-6
+                    .mt-2
+                      .form-group
+                        label(for='code') Código de muestra: 
+                        input.form-control(type='text' name='code' value=sample.code||'-' readonly)
+                      .form-group
+                        label(for='matrix') Matriz:
+                        input.form-control(type='text' name='matrix' value=sample.matrix||'-' readonly)
+                      .form-group
+                        label(for='analysisType') Tipo de análisis:
+                        input.form-control(type='text' name='analysisType' value=sample.analysisType||'-' readonly)
+                      .form-group
+                        label(for='cropType') Tipo de cultivo:
+                        input.form-control(type='text' name='cropType' value=sample.cropType||'-' readonly)
+                      .form-group
+                        label(for='cropAge') Edad de cultivo:
+                        input.form-control(type='text' name='cropAge' value=sample.cropAge||'-' readonly)
+                      .form-group
+                        label(for='masl') Altura msnm :
+                        input.form-control(type='text' name='masl' value=sample.masl||'-' readonly)
+                      .form-group
+                        labellabel(for='samplingDate') Fecha de toma de la muestra:
+                        input.form-control(type='text' name='samplingDate' value=formatDate(sample.samplingDate) readonly)
+                      .form-group
+                        label(for='depthSample') Profundidad de la toma de muestras:
+                        input.form-control(type='text' name='depthSample' value=sample.depthSample||'-' readonly)
+                      .form-group
+                        label(for='farmName') Nombre de la finca:
+                        input.form-control(type='text' name='farmName' value=sample.farmName||'-' readonly)
+                      .form-group
+                        label(for='cropAddress') Ubicación del predio:
+                        input.form-control(type='text' name='cropAddress' value=sample.cropAddress||'-' readonly)
+                      .form-group
+                        label(for='village') Vereda o Corregimiento:
+                        input.form-control(type='text' name='village' value=sample.village||'-' readonly)
+                      .form-group
+                        label(for='municipality') Municipio:
+                        input.form-control(type='text' name='municipality' value=sample.municipality||'-' readonly)
+                      .form-group
+                        label(for='country') País:
+                        input.form-control(type='text' name='country' value=sample.country||'-' readonly)   
+                  .col-xl-5.offset-xl-1.col-md-6.d-print-none
+                    .mt-2
+                      .form-group
+                        label(for='documentType') Tipo de documento:
+                        input.form-control(type='text' name='documentType' value=sample.client.documentType==1?'N° de cédula':'N° de NIT' readonly)
+                      .form-group
+                        label(for='document') Número de cédula o NIT:
+                        input.form-control(type='text' name='document' value=sample.client.document||'-' readonly)
+                      .form-group
+                        label(for='name') Nombre del cliente o razón social:
+                        input.form-control(type='text' name='name' value=sample.client.name||'-' readonly)
+                      .form-group
+                        label(for='address') Dirección:
+                        input.form-control(type='text' name='address' value=sample.client.address||'-' readonly)
+                      .form-group
+                        label(for='firstEmail') Correo eléctronico:
+                        input.form-control(type='text' name='firstEmail' value=sample.client.firstEmail||'-' readonly)
+                      .form-group
+                        label(for='secondEmail') Segundo correo eléctronico:
+                        input.form-control(type='text' name='secondEmail' value=sample.client.secondEmail||'-' readonly)
+                      .form-group
+                        label(for='applicant') ¿Quién trajo la muestra?:
+                        input.form-control(type='text' name='applicant' value=sample.client.name||'-' readonly)
+                      .form-group
+                        label(for='firstPhone') 1° número de teléfono:
+                        input.form-control(type='text' name='firstPhone' value=sample.client.firstPhone||'-' readonly)
+                      .form-group
+                        label(for='secondPhone') 2° número de teléfono:
+                        input.form-control(type='text' name='secondPhone' value=sample.client.secondPhone||'-' readonly)
+          .col-12.d-print-none
+            .card 
+              .card-body.d-print-none: .row.justify-content-center: .col-md-10
+                .table-rep-plugin
+                  .table-wrapper
+                    .table-responsive-xl.pt-5.pb-2
+                      table.table.table-hover
+                        thead
+                          tr
+                            th(scope="col") Nombre del párametro
+                            th(scope="col") Resultado
+                            th(scope="col") Unidades
+                        tbody
+                          tr(v-for="(r, index) in results")
+                            td(scope="row") {{r.name}}
+                            td(scope="row") {{r.finalResult}}
+                            td(scope="row") 
+                              span.units(v-html='r.units')
+          .col-12.d-print-none
+            .card  
+              .card-body: .row.justify-content-center: .col-md-10: .row.pt-5  
+                .col-12.d-flex.justify-content-center
+                  img.imageBox(src=sample.images[0], alt="")
+                .col-10.d-flex.justify-content-center
+                  img.imageBox(src=sample.images[1], alt="")
+                .col-7.d-flex.justify-content-center
+                  img.imageBox(src=sample.images[2], alt="")
+                .col-5.d-flex.justify-content-center
+                  img.imageBox(src=sample.images[3], alt="")
+              .form-group.d-print-none.mt-2
+                div(style='display:flex; justify-content:center;')
+                  button.btn.btn-primary.waves-effect(onclick="window.print()" style='margin: 0 0 0 16px;')
+                    | Imprimir
+                  a.btn.btn-secondary.waves-effect(style='margin: 0 0 0 16px;' href='/secretaria/muestras')
+                    | Volver

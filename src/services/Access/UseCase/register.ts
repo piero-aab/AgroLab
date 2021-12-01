@@ -1,13 +1,13 @@
 import { repository } from '../Domain/repository';
 
-export default async function (email: string, password: string): Promise<any> {
+export default async function (usercode: string, password: string): Promise<any> {
   try{
-    const exists: boolean = await repository.existEmail( email );
-    if( exists ) throw "El correo ingresado ya esta registrado";
+    const exists: boolean = await repository.existUserCode( usercode );
+    if( exists ) throw "El código de usuario ingresado ya esta registrado";
 
     let encryptPassword: string = repository.encryptPassword(password);
 
-    const newUser = await repository.createUser(email, encryptPassword);
+    const newUser = await repository.createUser(usercode, encryptPassword);
     if( !newUser ) throw "Problema al registar al usuario.";
 
     return newUser;

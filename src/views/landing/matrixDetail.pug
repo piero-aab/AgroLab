@@ -1,0 +1,19 @@
+
+extends ../layouts/landing.pug
+block content
+  section.page-header.main-slider 
+    .page-header__bg(style='background-image: url(/images/landing/matrix/bg-1.jpg);')
+    .container
+      ul.thm-breadcrumb.list-unstyled
+        li
+          a(href='/') Inicio
+        li /
+        li
+          a(href="/#matrix")  matrices
+      h2 #{matrix.title}
+  section.project-details#matrixDetail(data-index=matrix.index)
+    span(v-html="displayedMatrix")
+  
+  //vue
+  script(src="https://unpkg.com/vue@next")
+  script(src='/js/vue-landing.js')

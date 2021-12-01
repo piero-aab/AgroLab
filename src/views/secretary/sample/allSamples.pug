@@ -1,0 +1,84 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content#secretary-samples(data-samples=samples)
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Lista de muestras
+        .row
+          .col-12
+            .card
+              .card-body
+                .table-rep-plugin
+                  .table-wrapper
+                    .btn-toolbar
+                      .btn-group.pull-left.responsive
+                        .app-search.d-block.w-responsive
+                          .position-relative.w-responsive
+                            input.form-control.search--responsive.w-responsive(type='text',v-model="name" placeholder='Buscar por número de cédula del cliente o NIT')
+                            span.ri-search-line
+                      .btn-group.pull-right(style="padding: calc(32px / 2) 0")
+                        a.btn.btn-primary(href="/secretaria/muestras/crear") 
+                          | Crear muestra 
+                          i.fas.fa-microscope.align-middle.ml-2.mb-1
+                    .table-responsive-lg.py-2
+                      table.table.table-hover
+                        thead
+                          tr
+                            th(scope="col") Código de muestra
+                            th(scope="col") Fecha de ingreso
+                            th(scope="col") Matriz
+                            th(scope="col") N° de cédula del cliente
+                            th(scope="col") Nombre del cliente
+                            th(scope="col") Nombre del solicitante
+                            th(scope="col") Tipo de análisis
+                            th(scope="col" style="min-width:155px;") Estado
+                            th(scope="col" style="min-width:180px;") 
+
+                        tbody
+                          tr(v-for="(s, index) in displayedSamples" :key="s._id")
+                            td(scope="row") {{s.code}}
+                            td {{setTime(s.date)}}
+                            td {{s.matrix}}
+                            td {{s.client.document}}
+                            td {{s.client.name}}
+                            td {{s.applicant}}
+                            td {{s.analysisType}}
+                            td 
+                              span(v-html="getStatus(s.status)")
+                            td 
+                              button.btn.btn-primary(v-if="s.status<2" @click="editSample(s._id)") 
+                                i.far.fa-edit.align-middle.mr-1.mb-1
+                                | Editar muestra
+                              button.btn.btn-primary(v-else-if="s.status==3" @click="createReport(s._id)") 
+                                i.fas.fa-file-signature.align-middle.mr-1.mb-1
+                                | Generar informe
+                              .dropdown(v-else-if="s.status==4")
+                                button.btn.btn-info.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                  | Opciones
+                                  i.mdi.mdi-chevron-down.align-middle.ml-2
+                                .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                  button.dropdown-item( @click="openReport(s._id)") 
+                                    i.far.fa-file-alt.align-middle.mr-1.mb-1
+                                    | Ver reporte
+                                  button.dropdown-item( @click="editReport(s._id)") 
+                                    i.far.fa-images.align-middle.mr-1.mb-1
+                                    | Editar imagenes
+                      h3.text-center(v-if="displayedSamples.length==0 && name!=''") Su búsqueda no coincidió
+                      h3.text-center(v-else-if="samplesOrigin.length==0 && name==''") Aún no ha registrado muestras
+                    .col-12(v-if="displayedSamples.length>0" )
+                      ul.pagination.pagination-rounded.mb-sm-0.justify-content-center
+                        li.page-item
+                          a.page-link( v-if="page != 1" @click="page--")
+                            i.mdi.mdi-chevron-left
+                        li.page-item(:class="page == pageNumber? 'active':'' " v-for="pageNumber in pages.slice(page==1?page-1:page-2, page==1?page+4:page+3)" @click="page = pageNumber" :key="pageNumber")
+                          a.page-link {{pageNumber}}
+                        li.page-item
+                          a.page-link(@click="page++" v-if="page < pages.length")
+                            i.mdi.mdi-chevron-right

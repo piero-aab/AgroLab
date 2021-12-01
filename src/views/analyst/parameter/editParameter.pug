@@ -1,0 +1,87 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content#editParameter(data-parameter=parameter data-values=valuesParameter)
+    .page-content
+      .container-fluid
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0 {{parameter.parameter}}
+        .row(v-if="!isTexture")
+          .col-12
+            .card
+              .card-body
+                .row(style='justify-content: center;')
+                  .col-md-6
+                    .form-group(v-if="valuesFlag")
+                      label(for='chlorides') Valor de {{parameter.parameter}} *
+                      input#chlorides.form-control(type='number' name=`${parameter.parameter}` placeholder=`Valor de ${parameter.parameter}` v-model='totalResult' onchange="this.value = parseFloat(this.value).toFixed(4);" step=".01" readonly)
+                    .form-group(v-else-if="isTotalHardness")
+                      label(for='chlorides') Valor de {{parameter.parameter}} *
+                      input#chlorides.form-control(type='number' name=`${parameter.parameter}` placeholder=`Valor de ${parameter.parameter}` v-model='totalResult' onchange="this.value = parseFloat(this.value).toFixed(4);" step=".01" readonly)
+                    .form-group(v-else)
+                      label(for='chlorides') Valor de {{parameter.parameter}} *
+                      input#chlorides.form-control(type='number' name=`${parameter.parameter}` placeholder=`Valor de ${parameter.parameter}` v-model='totalResult' onchange="this.value = parseFloat(this.value).toFixed(4);" step=".01" required)
+                  .col-md-2
+                    .form-group
+                      label(for='address') Unidad
+                      span.units(v-html='parameter.units')
+        .row(v-if="valuesFlag")
+          .col-12
+            .card
+              .card-body
+                .row(style='margin-top:36px; justify-content: center;')
+                  .col-md-9
+                    .form-group(v-for="(variable, index) in parameter.variables") 
+                      .div(v-if="index!=5 && parameter.matrix=='Suelo'")
+                        span(v-html='variable')
+                        //Esto es para el caso de Materia Organica en Concentracion del FAS ya que se calcula segun v[1] 
+                        input.form-control(v-if="index==2 && parameter.index==3" type='number' :id='index' :name=`variable-${index}` v-model="v[index]" step=".01" readonly)
+                        //Esto es para la variable Clase Textural de Textura ya que se ingresa texto
+                        input.form-control(v-else-if="index==3 && parameter.parameter=='Textura'" type='text' :id='index' :name=`variable-${index}` v-model="v[index]" placeholder="CLASE TEXTURAL" required='')
+                        //Esto es para los otros casos donde se ingresan valores en Suelo
+                        input.form-control(v-else type='number' :id='index' :name=`variable-${index}` v-model='v[index]' onchange="this.value = parseFloat(this.value).toFixed(4);" v-on:blur="handleBlur(v[index], index)" step=".01" required='')
+                      //Este es para el caso de Materia Organica donde se calcula el CO por los otros v[...]
+                      .div(v-else-if="index==5 && parameter.matrix=='Suelo'")
+                        span(v-html='variable')
+                        input.form-control(type='number' :id='index' :name=`variable-${index}` v-model="v[index]" step=".01" readonly)
+                      //Este es para los otros parametros que son de Agua
+                      .div(v-else-if="parameter.matrix!='Suelo'")
+                        span(v-html='variable')
+                        input.form-control(type='number' :id='index' :name=`variable-${index}` v-model='v[index]' onchange="this.value = parseFloat(this.value).toFixed(4);" v-on:blur="handleBlur(v[index], index)" step=".01" required='')
+        .form-group.mt-2
+          div.buttons-ord
+            button.btn.btn-primary.waves-effect.waves-light.mr-1(type='button' @click=`setData()`)
+              | Ingresar Valores
+            //Este es para el caso de calcular dureza total
+            button.btn.btn-info.waves-effect.waves-light.mr-1.button-margin(v-if='isTotalHardness' type='button' @click=`calcTotalHardness()`)
+              | Calcular valores
+            button.btn.btn-secondary.waves-effect.button-margin(type="button" onclick=`confirmReturn('¿Desea perder los cambios?',' ','/analista/muestra/${parameter.id}')`)
+              | Volver
+  style(scoped='').
+    .units p {
+      margin: 8px 0 0 16px;
+      font-size: 16px
+    }
+    .buttons-ord {
+      display: flex; 
+      justify-content: center;
+    }
+    .button-margin{
+      margin: 0 0 0 16px;
+    }
+
+    @media (max-width: 416px){
+      .buttons-ord {
+        display: flex; 
+        justify-content: center;
+        flex-direction: column;
+      }
+      .button-margin{
+        margin: 16px 0;
+      }
+    }

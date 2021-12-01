@@ -1,0 +1,168 @@
+extends ../../layouts/main.pug
+block content
+  // ==============================================================
+  // Start right Content here
+  // ==============================================================
+  .main-content
+    .page-content
+      .container-fluid 
+        // start page title
+        .row
+          .col-12
+            .page-title-box.d-flex.align-items-center.justify-content-center
+              h1.mb-0  Resultados
+          .col-12
+            .card
+              .card-body
+                .row.justify-content-center
+                  .col-xl-5.col-md-6
+                    .mt-2
+                      .form-group
+                        label(for='code') Código de muestra: 
+                        input#code.form-control(type='text' name='code' value=sample.code||'-' readonly)
+                      .form-group
+                        label(for='matrix') Matriz:
+                        input#matrix.form-control(type='text' name='matrix' value=sample.matrix||'-' readonly)
+                      .form-group
+                        label(for='analysisType') Tipo de análisis:
+                        input#analysisType.form-control(type='text' name='analysisType' value=sample.analysisType||'-' readonly)
+                      .form-group
+                        label(for='cropType') Tipo de cultivo:
+                        input#cropType.form-control(type='text' name='cropType' value=sample.cropType||'-' readonly)
+                      .form-group
+                        label(for='cropAge') Edad de cultivo:
+                        input#matrix.form-control(type='text' name='cropAge' value=sample.cropAge||'-' readonly)
+                      .form-group
+                        label(for='masl') Altura msnm :
+                        input#analysisType.form-control(type='text' name='masl' value=sample.masl||'-' readonly)
+                      .form-group
+                        -
+                          function formatDate(date){
+                            let d = new Date(date)
+                            d.setHours(d.getHours() + 5);
+                            let dateYear=d.getFullYear()
+                            let dateMonth=d.getMonth()+1
+                            let dateDay=d.getDate()
+                            if (dateDay.toString().length==1) dateDay="0"+dateDay
+                            if (dateMonth.toString().length==1) dateMonth="0"+dateMonth
+                            return `${dateYear}-${dateMonth}-${dateDay}`
+                          }
+                        labellabel(for='samplingDate') Fecha de toma de la muestra:
+                        input#cropType.form-control(type='text' name='samplingDate' value=formatDate(sample.samplingDate) readonly)
+                      .form-group
+                        label(for='depthSample') Profundidad de la toma de muestras:
+                        input#analysisType.form-control(type='text' name='depthSample' value=sample.depthSample||'-' readonly)
+                      .form-group
+                        label(for='farmName') Nombre de la finca:
+                        input#analysisType.form-control(type='text' name='farmName' value=sample.farmName||'-' readonly)
+                      .form-group
+                        label(for='cropAddress') Ubicación del predio:
+                        input#analysisType.form-control(type='text' name='cropAddress' value=sample.cropAddress||'-' readonly)
+                      .form-group
+                        label(for='village') Vereda o Corregimiento:
+                        input#analysisType.form-control(type='text' name='village' value=sample.village||'-' readonly)
+                      .form-group
+                        label(for='municipality') Municipio:
+                        input#analysisType.form-control(type='text' name='municipality' value=sample.municipality||'-' readonly)
+                      .form-group
+                        label(for='country') País:
+                        input#analysisType.form-control(type='text' name='country' value=sample.country||'-' readonly)
+                      
+                  .col-xl-5.offset-xl-1.col-md-6
+                    .mt-2
+                      .form-group
+                        label(for='documentType') Tipo de documento:
+                        input#matrix.form-control(type='text' name='documentType' value=sample.client.documentType==1?'N° de cédula':'N° de NIT' readonly)
+                      .form-group
+                        label(for='document') Número de cédula o NIT:
+                        input#analysisType.form-control(type='text' name='document' value=sample.client.document||'-' readonly)
+                      .form-group
+                        label(for='name') Nombre del cliente o razón social:
+                        input#cropType.form-control(type='text' name='name' value=sample.client.name||'-' readonly)
+                      .form-group
+                        label(for='address') Dirección:
+                        input#cropType.form-control(type='text' name='address' value=sample.client.address||'-' readonly)
+                      .form-group
+                        label(for='firstEmail') Correo eléctronico:
+                        input#cropType.form-control(type='text' name='firstEmail' value=sample.client.firstEmail||'-' readonly)
+                      .form-group
+                        label(for='secondEmail') Segundo correo eléctronico:
+                        input#cropType.form-control(type='text' name='secondEmail' value=sample.client.secondEmail||'-' readonly)
+                      .form-group
+                        label(for='applicant') ¿Quién trajo la muestra?:
+                        input#cropType.form-control(type='text' name='applicant' value=sample.client.name||'-' readonly)
+                      .form-group
+                        label(for='firstPhone') 1° número de teléfono:
+                        input#cropType.form-control(type='text' name='firstPhone' value=sample.client.firstPhone||'-' readonly)
+                      .form-group
+                        label(for='secondPhone') 2° número de teléfono:
+                        input#cropType.form-control(type='text' name='secondPhone' value=sample.client.secondPhone||'-' readonly)
+          .col-12#createReport(data-results=sample.results data-matrix=sample.matrix)
+            .card
+              .card-body: .row.justify-content-center: .col-md-10
+                .table-rep-plugin
+                  .table-wrapper
+                    .table-responsive-xl.py-2
+                      table.table.table-hover
+                        thead
+                          tr
+                            th(scope="col") Nombre del párametro
+                            th(scope="col") Resultado
+                            th(scope="col") Unidades
+                        tbody
+                          tr(v-for="(r, index) in results")
+                            td(scope="row" ) {{r.name}}
+                            td(scope="row" ) {{r.finalResult}}
+                            td(scope="row" ) 
+                              span.units(v-html='r.units')
+          .col-12
+            .card
+              .card-body
+                h4.card-title Imagenes
+                p.card-title-desc
+                  | Cargue sus imagenes en el orden respectivo
+
+                div
+                  form.dropzone#myform(action=`/secretaria/muestras/${sample._id}/reporte/crear` method="post" enctype="multipart/form-data")
+                    .fallback
+                      input(name='file' type='file' multiple='multiple')
+                    .dz-message.needsclick
+                      .mb-3
+                        i.display-4.text-muted.ri-upload-cloud-2-line
+                      h4 Suelta los archivos aquí o haz clic para subirlos.
+                .form-group.mt-2
+                  div(style='display:flex; justify-content:center;')
+                    button.btn.btn-primary.waves-effect.waves-light.mr-1#finalBtn(onclick=`myFunction("${sample._id}")` type='button')
+                      | Enviar Resultados
+                    a.btn.btn-secondary.waves-effect(style='margin: 0 0 0 16px;' href='/secretaria/muestras')
+                      | Volver
+  script(src='/libs/dropzone/dropzone.js')
+  script.
+    let count = 0
+    function myFunction(id) {
+      console.log(id)
+      if(Dropzone.instances[0].files.length<4){
+        return Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Debe subir 4 fotos para generar el informe',
+          showConfirmButton: false,
+          timer: 3500
+        })
+      }else{
+        Dropzone.instances[0].processQueue()
+        return Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Se cargaron las imagenes correctamente',
+          showConfirmButton: false,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          timer: 5000
+        }).then((result)=>{
+          return (window.location = `/secretaria/muestras/${id}/reporte/detalle`);
+        })
+      }
+    }
+    

@@ -1,0 +1,45 @@
+doctype html
+head
+  include ../partials/title-meta
+  // fonts
+  link(rel='stylesheet' href='/css/landing/bootstrap.min.css')
+  link(rel='stylesheet' href='/css/landing/fontawesome-all.min.css')
+  link(rel='stylesheet' href='/css/landing/swiper.min.css')
+  link(rel='stylesheet' href='/css/landing/animate.min.css')
+  link(rel='stylesheet' href='/css/landing/odometer.min.css')
+  link(rel='stylesheet' href='/css/landing/jarallax.css')
+  link(rel='stylesheet' href='/css/landing/magnific-popup.css')
+  link(rel='stylesheet' href='/css/landing/bootstrap-select.min.css')
+  link(rel='stylesheet' href='/css/landing/agrikon-icons.css')
+  link(rel='stylesheet' href='/css/landing/nouislider.min.css')
+  link(rel='stylesheet' href='/css/landing/nouislider.pips.css')
+  // template styles
+  link(rel='stylesheet' href='/css/landing/main.css')
+  body
+    include ../partials/loader
+    .page-wrapper
+      header
+        include ../partials/header
+      block content
+
+      include ../partials/flash
+      include ../partials/footer
+    include ../partials/mobile-navbar 
+    a.scroll-to-target.scroll-to-top(href='#' data-target='html')
+      i.fa.fa-angle-up
+script(src='/js/landing/jquery-3.5.1.min.js')
+script(src='/js/landing/bootstrap.bundle.min.js')
+script(src='/js/landing/swiper.min.js')
+script(src='/js/landing/jquery.ajaxchimp.min.js')
+script(src='/js/landing/jquery.magnific-popup.min.js')
+script(src='/js/landing/jquery.validate.min.js')
+script(src='/js/landing/bootstrap-select.min.js')
+script(src='/js/landing/wow.js')
+script(src='/js/landing/odometer.min.js')
+script(src='/js/landing/jquery.appear.min.js')
+script(src='/js/landing/jarallax.min.js')
+script(src='/js/landing/circle-progress.min.js')
+script(src='/js/landing/wNumb.min.js')
+script(src='/js/landing/nouislider.min.js')
+// template js
+script(src='/js/landing/theme.js')

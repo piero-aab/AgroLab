@@ -193,7 +193,7 @@ function (_Emitter) {
          * How many file uploads to process in parallel (See the
          * Enqueuing file uploads documentation section for more info)
          */
-        parallelUploads: 2,
+        parallelUploads: 4,
 
         /**
          * Whether to send multiple files in one request. If
@@ -202,7 +202,7 @@ function (_Emitter) {
          * also trigger additional events (like `processingmultiple`). See the events
          * documentation section for more information.
          */
-        uploadMultiple: false,
+        uploadMultiple: true,
 
         /**
          * Whether you want files to be uploaded in chunks to your server. This can't be
@@ -323,7 +323,7 @@ function (_Emitter) {
         /**
          * Can be used to limit the maximum number of files that will be handled by this Dropzone
          */
-        maxFiles: null,
+        maxFiles: 4,
 
         /**
          * An optional object to send additional headers to the server. Eg:
@@ -375,7 +375,7 @@ function (_Emitter) {
          * See the [enqueuing file uploads](#enqueuing-file-uploads) documentation
          * section for more information.
          */
-        autoProcessQueue: true,
+        autoProcessQueue: false,
 
         /**
          * If false, files added to the dropzone will not be queued by default.
@@ -388,7 +388,7 @@ function (_Emitter) {
          * already uploading) the file. The `dictCancelUpload`, `dictCancelUploadConfirmation`
          * and `dictRemoveFile` options are used for the wording.
          */
-        addRemoveLinks: false,
+        addRemoveLinks: true,
 
         /**
          * Defines where to display the file previews – if `null` the
@@ -440,19 +440,19 @@ function (_Emitter) {
         /**
          * The text used before any files are dropped.
          */
-        dictDefaultMessage: "Drop files here to upload",
+        dictDefaultMessage: "Arrastra los archivos aquí para subirlos",
 
         /**
          * The text that replaces the default message text it the browser is not supported.
          */
-        dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+        dictFallbackMessage: "Su navegador no admite la carga de archivos mediante la función de arrastrar y soltar.",
 
         /**
          * The text that will be added before the fallback form.
          * If you provide a  fallback element yourself, or if this option is `null` this will
          * be ignored.
          */
-        dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+        dictFallbackText: "Utilice el formulario de respaldo a continuación para cargar sus archivos como en los viejos tiempos.",
 
         /**
          * If the filesize is too big.
@@ -489,7 +489,7 @@ function (_Emitter) {
         /**
          * If `addRemoveLinks` is true, the text to be used to remove a file.
          */
-        dictRemoveFile: "Remove file",
+        dictRemoveFile: "Remover archivo",
 
         /**
          * If this is not null, then the user will be prompted before removing a file.
@@ -996,7 +996,7 @@ function (_Emitter) {
         sendingmultiple: function sendingmultiple() {},
         // When the complete upload is finished and successful
         // Receives `file`
-        success: function success(file) {
+        success: function success(file, response) {
           if (file.previewElement) {
             return file.previewElement.classList.add("dz-success");
           }
@@ -2919,7 +2919,6 @@ function (_Emitter) {
     key: "_finishedUploading",
     value: function _finishedUploading(files, xhr, e) {
       var response;
-
       if (files[0].status === Dropzone.CANCELED) {
         return;
       }
@@ -2930,7 +2929,7 @@ function (_Emitter) {
 
       if (xhr.responseType !== 'arraybuffer' && xhr.responseType !== 'blob') {
         response = xhr.responseText;
-
+        this.finalStatus=xhr.status
         if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {
           try {
             response = JSON.parse(response);
@@ -3090,7 +3089,6 @@ Dropzone.version = "5.7.0"; // This is a map of options for your different dropz
 //     <form action="/upload" id="my-dropzone-element-id" class="dropzone"></form>
 
 Dropzone.options = {}; // Returns the options for an element or undefined if none available.
-
 Dropzone.optionsForElement = function (element) {
   // Get the `Dropzone.options.elementId` for this element if it exists
   if (element.getAttribute("id")) {

@@ -1,3 +1,8 @@
+$(window).on("load", function () {
+  if ($(".preloader").length) {
+    $(".preloader").fadeOut(1500);
+  }
+})
 document.addEventListener("DOMContentLoaded", function(){
   let message = JSON.parse( document.getElementById("message").getAttribute("data") );
   const position = screen.width<768?'center':'bottom-end'; 
@@ -5,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
   if (message.success){
     for (let index = 0; index < message.success.length; index++) {
         Swal.fire({
-          position: position,
+          position: 'center',
           icon: 'success',
           title: message.success[index].msg,
           showConfirmButton: false,
@@ -39,18 +44,19 @@ document.addEventListener("DOMContentLoaded", function(){
   } 
 });
 
-
 /*
  *
  * Validate Login
  * 
 */
 
-function validateEmail(event){
-  const email = document.getElementById('email').value;
-  if(! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email)){
+function validateUserCode(event){
+  const userCode = document.getElementById('usercode').value;
+  let pattern = /^[0-9]{7,10}$/g;
+  //if(! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email)){
+  if(! pattern.test(userCode)){
     event.preventDefault();
-    badForm('El correo ingresado no es válido');
+    badForm('El código de usuario ingresado no es válido');
     return false;
   }
 }
@@ -66,6 +72,21 @@ function badForm(message){
   })
 }
 
+function confirmReturn(message,name,href){
+  Swal.fire({
+    title: message,
+    text: name,
+    showCancelButton: true,
+    confirmButtonText: 'Confirmar',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      return (window.location = href);
+    }
+  })
+}
+
+
 /*
  *
  * Validate Login
@@ -80,9 +101,12 @@ function badForm(message){
 */
 
 function validateRegister(event){
-
-  const email = document.getElementById('email').value;
-  if(! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email)){
+  const userCode = document.getElementById('usercode').value;
+  let pattern = /^[0-9]{7,10}$/g;
+  //if(! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email)){
+  if(! pattern.test(userCode)){
+  //const email = document.getElementById('email').value;
+  //if(! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email)){
     event.preventDefault();
     badForm('El correo ingresado no es válido');
     return false;
@@ -143,7 +167,8 @@ function checkType(mensaje) {
 
 function validateEmail(event){
   const email = document.getElementById('email').value;
-  if(! /^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email)){
+  const reg =  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  if(!reg.test(email)){
     event.preventDefault();
     badForm('El correo ingresado no es válido');
     return false;

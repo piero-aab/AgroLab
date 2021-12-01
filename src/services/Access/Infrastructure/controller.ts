@@ -18,9 +18,9 @@ export async function getLogin(req: any, res: any, next:any){
 
 export async function postLogin(req: any, res: any){
   try{
-    const { email, pswd } = req.body;
+    const { usercode, pswd } = req.body;
 
-    const user = await loginUser(email, pswd);
+    const user = await loginUser(usercode, pswd);
 
     let route: string = '';
     switch(user.type){
@@ -28,10 +28,10 @@ export async function postLogin(req: any, res: any){
         route = '/admin/panel';
         break;
       case 1:
-        route = '/vista-analista';
+        route = '/analista/muestras';
         break;
       case 2:
-        route = '/vista-cliente';
+        route = '/secretaria/muestras';
         break;
       default:
         throw 'Error al solicitar la información.';
@@ -62,10 +62,10 @@ export async function getSignUp(req: any, res: any, next:any){
 
 export async function postSignUp(req: any, res: any){ 
   try{
-    const { email, pswd  } = req.body;
+    const { usercode, pswd  } = req.body;
 
     const newUser = await registerUser(
-      email,
+      usercode,
       pswd
     );
 
@@ -106,15 +106,14 @@ export async function postForgot(req: any, res: any){
     const { email } = req.body;
 
     const token: string = await forgotUser(email);
-
-    const subject: string ="Invenio: Recupera tu contraseña"
+    const subject: string ="Agroambiental: Recupera tu contraseña"
 
     const text: string = `
       Hola,\n\n
       Hemos recibido su solicitud de cambio de contraseña. Este correo electrónico contiene la información que necesita para cambiar su contraseña.\n\n
       Haga clic en este enlace para ingresar su nueva contraseña: http://${req.headers.host}/reiniciar/${token}\n\n
       Atentamente,
-      Invenio`
+      Agroambiental`
 
     const message: string = await plainMailService("no-reply@starter.pe",email,subject,text);
 

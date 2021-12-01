@@ -12,7 +12,7 @@ export default async function(token: string, password: string ): Promise<string>
 
     return "Se modificó la contraseña";
 
-  }catch(error){
+  }catch(error:any){
     return error;
   }
 }

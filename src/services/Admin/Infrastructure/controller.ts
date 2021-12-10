@@ -34,7 +34,7 @@ export async function postCreateAnalyst(req: any, res: any, next:any){
       );
     const text = `Hola,\n\n
     se ha generado un usuario del tipo analista en Agroambiental.\n\n
-    Cédula de identificación : ${newUser.document}\n\n
+    Documento de identificación : ${newUser.document}\n\n
     Contraseña : ${pswd}\n\n
     Haga clic en este enlace para ingresar con su nuevo usuario: http://${req.headers.host}/ingresar\n\n
     No olvide cambiar de contraseña por una más segura.\n\n
@@ -58,7 +58,7 @@ export async function updateAnalyst(req: any, res: any, next:any){
     if(newEmail=='true'){
       const text = `Hola,\n\n
       se ha generado un usuario del tipo analista en AgroAmbiental.\n\n
-      Cédula de identificación : ${user.document}\n\n
+      Documento de identificación : ${user.document}\n\n
       Contraseña : ${pswd}\n\n
       Haga clic en este enlace para ingresar con su nuevo usuario: http://${req.headers.host}/ingresar\n\n
       No olvide cambiar de contraseña por una más segura.\n\n

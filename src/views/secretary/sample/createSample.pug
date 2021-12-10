@@ -25,15 +25,15 @@ block content
                         label(for='documentType') Seleccione el tipo de documento *
                         select#documenType.custom-select(name='documentType' required)
                           option(value='') Tipo de documento
-                          option(value='1') N° de cédula
-                          option(value='2') N° de NIT
+                          option(value='1') N° de Documento
+                          option(value='2') N° de DNI
                         //.invalid-feedback
                           | Por favor ingrese un tipo de documento válido
                       .form-group
-                        label(for='document') Ingresa el número de cédula o NIT *
-                        input#document.form-control(type='text' name='document' oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength="7" maxlength="10" placeholder='Número de cédula o NIT' required='')
+                        label(for='document') Ingresa el número de Documento o DNI *
+                        input#document.form-control(type='text' name='document' oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength="7" maxlength="10" placeholder='Número de Documento o DNI' required='')
                         //.invalid-feedback
-                          | Por favor ingrese un número de cédula o NIT válido
+                          | Por favor ingrese un número de Documento o DNI válido
                       .form-group
                         label(for='name') Nombre del cliente o razón social *
                         input#name.form-control(type='text' name='name' placeholder='Nombre del cliente o razón social' maxlength="30" required='')

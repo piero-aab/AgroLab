@@ -33,7 +33,7 @@ div
                       a.logo(href='/')
                         img(src='/images/agroambiental/logo-agroambiental.png', alt='' style='height: 170px')
                     h4.font-size-18.mt-4 ¡Bienvenido!
-                    p.text-muted Ingresa con tu cuenta registrada en Agroambiental.
+                    p.text-muted Ingresa con tu cuenta registrada en Agrolab.
                   .p-2.mt-5
                     form.form-horizontal(method='POST' action='/ingresar' onsubmit=" return validateUserCode(event)")
                       .form-group.auth-form-group-custom.mb-4
@@ -46,10 +46,10 @@ div
                         input#pswd.form-control(type='password', name='pswd', placeholder='Ingrese contraseña' minlength='8' required)
                       .mt-4.text-center
                         button.btn.btn-primary.w-md.waves-effect.waves-light(type='submit') Ingresar
-                      .mt-4.text-center
-                        a.text-muted(href='/recuperar-contrasena')
-                          i.mdi.mdi-lock.mr-1
-                          |  Recuperar contraseña
+                      //- .mt-4.text-center
+                      //-   a.text-muted(href='/recuperar-contrasena')
+                      //-     i.mdi.mdi-lock.mr-1
+                      //-     |  Recuperar contraseña
       .col-lg-8
         .authentication-bg
 // JAVASCRIPT

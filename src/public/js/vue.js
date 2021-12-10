@@ -36,8 +36,8 @@ const adminAnalysts= Vue.createApp({
           '<input id="lastName" class="swal2-input" placeholder="Apellidos" required>'+
           '<label for="my-input">Correo electrónico</label>'+
           `<input id="email" type="email" class="swal2-input" placeholder="Correo electrónico" required>`+
-          '<label for="my-input">Cédula de identificación</label>'+
-          `<input id="document" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength='7' maxlength='10' placeholder="Cédula de identificación" required>`+
+          '<label for="my-input">Documento de identificación</label>'+
+          `<input id="document" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength='7' maxlength='10' placeholder="Documento de identificación" required>`+
           '<label for="my-input" style="margin-bottom: 1.5em;">Selecciona permisos agua</label>'+
           `<select class="selectmultiple select2 form-control select2-multiple" id="water" name="water[]" multiple="multiple"></select>`+
           '<label for="my-input" style="margin-bottom: 1.5em;">Selecciona permisos suelo</label>'+
@@ -79,13 +79,13 @@ const adminAnalysts= Vue.createApp({
               })  
             }
             if (document.getElementById('document').value=='') {
-              Swal.showValidationMessage('Cédula de identificación requerida')   
+              Swal.showValidationMessage('Documento de identificación requerida')   
             }else if(document.getElementById('document').value!='' && document.getElementById('document').value.length<7){
-              Swal.showValidationMessage('Cédula de identificación incorrecto')  
+              Swal.showValidationMessage('Documento de identificación incorrecto')  
             }
             if(this.documents&&this.documents.length>0){
               this.documents.filter((a)=>{
-                if(a.document==document.getElementById('document').value) Swal.showValidationMessage('Ya existe un usuario con esta cédula de identificación') 
+                if(a.document==document.getElementById('document').value) Swal.showValidationMessage('Ya existe un usuario con esta Documento de identificación') 
               })  
             }
             if (document.getElementById('water').selectedOptions.length==0 && document.getElementById('ground').selectedOptions.length==0) {
@@ -145,8 +145,8 @@ const adminAnalysts= Vue.createApp({
         `<input id="lastName" class="swal2-input" value="${analyst.lastName}"  placeholder="Apellidos" required>`+
         '<label for="my-input">Correo electrónico</label>'+
         `<input id="email" type="email" class="swal2-input" value="${analyst.email}" placeholder="Correo electrónico" required>`+
-        '<label for="my-input">Cédula de identificación</label>'+
-        `<input id="document" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength='7' maxlength='10' value="${analyst.document}" placeholder="Cédula de identificación" required>`+
+        '<label for="my-input">Documento de identificación</label>'+
+        `<input id="document" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength='7' maxlength='10' value="${analyst.document}" placeholder="Documento de identificación" required>`+
         '<label for="my-input" style="margin-bottom: 1.5em;">Selecciona permisos agua</label>'+
         `<select class="selectmultiple select2 form-control select2-multiple" id="water" name="water[]" multiple="multiple"></select>`+
         '<label for="my-input" style="margin-bottom: 1.5em;">Selecciona permisos suelo</label>'+
@@ -195,14 +195,14 @@ const adminAnalysts= Vue.createApp({
             isNew=false
           }
           if (document.getElementById('document').value=='') {
-            Swal.showValidationMessage('Cédula de identificación requerida')   
+            Swal.showValidationMessage('Documento de identificación requerida')   
           }else if(document.getElementById('document').value!='' && document.getElementById('document').value.length<7){
-            Swal.showValidationMessage('Cédula de identificación incorrecto')  
+            Swal.showValidationMessage('Documento de identificación incorrecto')  
           }
           if(analyst.document!=document.getElementById('document').value){
             if(this.documents&&this.documents.length>0){
               this.documents.filter((a)=>{
-                if(a.document==document.getElementById('document').value) Swal.showValidationMessage('Ya existe un usuario con esta cédula de identificación') 
+                if(a.document==document.getElementById('document').value) Swal.showValidationMessage('Ya existe un usuario con esta Documento de identificación') 
               })  
             }
           }

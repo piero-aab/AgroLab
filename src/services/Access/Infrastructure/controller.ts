@@ -106,14 +106,14 @@ export async function postForgot(req: any, res: any){
     const { email } = req.body;
 
     const token: string = await forgotUser(email);
-    const subject: string ="Agroambiental: Recupera tu contraseña"
+    const subject: string ="Agrolab: Recupera tu contraseña"
 
     const text: string = `
       Hola,\n\n
       Hemos recibido su solicitud de cambio de contraseña. Este correo electrónico contiene la información que necesita para cambiar su contraseña.\n\n
       Haga clic en este enlace para ingresar su nueva contraseña: http://${req.headers.host}/reiniciar/${token}\n\n
       Atentamente,
-      Agroambiental`
+      Agrolab`
 
     const message: string = await plainMailService("no-reply@starter.pe",email,subject,text);
 

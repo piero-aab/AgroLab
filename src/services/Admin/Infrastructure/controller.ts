@@ -33,14 +33,14 @@ export async function postCreateAnalyst(req: any, res: any, next:any){
       pswd
       );
     const text = `Hola,\n\n
-    se ha generado un usuario del tipo analista en Agroambiental.\n\n
+    se ha generado un usuario del tipo analista en Agrolab.\n\n
     Documento de identificación : ${newUser.document}\n\n
     Contraseña : ${pswd}\n\n
     Haga clic en este enlace para ingresar con su nuevo usuario: http://${req.headers.host}/ingresar\n\n
     No olvide cambiar de contraseña por una más segura.\n\n
     Atentamente,
-    Agroambiental`
-    const subject ="Te has registrado en Agroambiental"
+    Agrolab`
+    const subject ="Te has registrado en Agrolab"
     await plainMailService("no-reply@starter.pe",newUser.email,subject,text)
     return res.send(newUser);
   }catch(error){

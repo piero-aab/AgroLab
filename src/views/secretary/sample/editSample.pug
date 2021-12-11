@@ -79,9 +79,9 @@ block content
                           let today=new Date()
                         input#resultsDeliveryDate.form-control(type='date' value=formatDate(sample.resultsDeliveryDate) name='resultsDeliveryDate' min=formatDate(today) required='')
                       .form-group
-                        label(for='ourSample') ¿Agroambiental tomó la muestra? *
+                        label(for='ourSample') ¿Agrolab tomó la muestra? *
                         select#ourSample.custom-select(name='ourSample' v-model='sample.ourSample' required)
-                          option(value='') ¿Agroambiental tomó la muestra?
+                          option(value='') ¿Agrolab tomó la muestra?
                           option(value='1') Si
                           option(value='2') No
                       .form-group

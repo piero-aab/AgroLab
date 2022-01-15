@@ -1,28 +1,22 @@
 header.main-header
+  // /.topbar
   .topbar
     .container
       .topbar__left
-        .topbar__social
-          a.fab.fa-facebook-square(href='https://www.facebook.com/Agrolab-Lab-321711021361920' target="_blank")
-          a.fab.fa-instagram(href='https://www.instagram.com/agroam1/' target="_blank")
-        // /.topbar__social
         p Bienvenido a Agrolab
       // /.topbar__left
       .topbar__right
         a(href='mailto:info@agroambiental-lab.com')
           i.agrikon-icon-email
-          | info@agroambiental-lab.com
+          | info@agrolab.com
         a(href='javascript:void(0)')
           i.agrikon-icon-clock
-          | Lun - Vie 8:00 - 17:00, Sab 8:00 - 12:00, Dom - CERRADO
-      // /.topbar__right
-    // /.container
-  // /.topbar
+          | Lun - Vie 8:00 - 17:00, Sab 8:00 - 12:00
   nav.main-menu
     .container
       .logo-box
         a(href='/' aria-label='logo image')
-          img(src='/images/agroambiental/logo-agroambiental.png' height='70' alt='')
+          img(src='/images/agroambiental/logo-agroambientalHeader.png' height='70' alt='')
         span.fa.fa-bars.mobile-nav__toggler
       // /.logo-box
       ul.main-menu__list#nav
@@ -31,32 +25,8 @@ header.main-header
         li
           a(href=`${title=='Home'?'#aboutUs':'/#aboutUs'}`) Sobre nosotros
         li
-          a(href=`${title=='Home'?'#ourServices':'/#ourServices'}`) Servicios
+          a(href=`${title=='Home'?'#matrix':'/#matrix'}`) Nuestros Servicios
         li.dropdown(class=title=='Services'?"current":"")
-          a(href=`${title=='Home'?'#matrix':'/#matrix'}`) Conoce más
-          ul
-            li
-              a(href='/servicios?index=0') ANÁLISIS EN SUELOS CON FINES AGRÍCOLAS
-            li
-              a(href='/servicios?index=2') ANÁLISIS EN AGUAS
-            li
-              a(href='/servicios?index=1') ANÁLISIS EN TEJIDO VEGETAL
-            li
-              a(href='/servicios?index=3') ANÁLISIS EN ABONOS ORGÁNICOS Y FERTILIZANTES
-      // /.main-menu__list
-      .main-header__info
-        a.main-header__info-phone.cursor-pointer(onclick=`link(573168718691,'¡Hola!, quiero más información sobre los servicios que ofrecen actualmente Agrolab.')` target='_blank')
-          i.fab.fa-whatsapp
-          span.main-header__info-phone-content
-            span.main-header__info-phone-text Mensaje directo
-            span.main-header__info-phone-title 316 871 8691
-          // /.main-header__info-phone-content
-        // /.main-header__info-phone
-      // /.main-header__info
-    // /.container
-  // /.main-menu
-// /.main-header
+          a(href="/ingresar" target="_blank") Acceso
 .stricky-header.stricked-menu.main-menu
   .sticky-header__content
-  // /.sticky-header__content
-// /.stricky-header

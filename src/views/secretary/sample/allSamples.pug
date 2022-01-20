@@ -52,7 +52,7 @@ block content
                             td {{s.analysisType}}
                             td 
                               span(v-html="getStatus(s.status)")
-                            //- td 
+                            td 
                               button.btn.btn-primary(v-if="s.status<2" @click="editSample(s._id)") 
                                 i.far.fa-edit.align-middle.mr-1.mb-1
                                 | Editar muestra

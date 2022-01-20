@@ -71,7 +71,7 @@ block content
                             th(scope="col") Estado
                             th(scope="col") Opciones
                         tbody
-                          //- tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
+                          tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
                           tr(v-for="(p, index) in parameters")
                             td(scope="row") {{p.name}}
                             td(scope="row") {{p.result}}

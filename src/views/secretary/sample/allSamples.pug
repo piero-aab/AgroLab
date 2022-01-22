@@ -18,7 +18,7 @@ block content
                 .table-rep-plugin
                   .table-wrapper
                     .btn-toolbar
-                      //- .btn-group.pull-left.responsive
+                      .btn-group.pull-left.responsive
                         .app-search.d-block.w-responsive
                           .position-relative.w-responsive
                             input.form-control.search--responsive.w-responsive(type='text',v-model="name" placeholder='Buscar por número de Documento del cliente o DNI')
@@ -52,10 +52,10 @@ block content
                             td {{s.analysisType}}
                             td 
                               span(v-html="getStatus(s.status)")
-                            //- td 
+                            td 
                               button.btn.btn-primary(v-if="s.status<2" @click="editSample(s._id)") 
-                                i.far.fa-edit.align-middle.mr-1.mb-1
-                                | Editar muestra
+                                //- i.far.fa-edit.align-middle.mr-1.mb-1
+                                //- | Editar muestra
                                 | Mas adelante
                               button.btn.btn-primary(v-else-if="s.status==3" @click="createReport(s._id)") 
                                 i.fas.fa-file-signature.align-middle.mr-1.mb-1

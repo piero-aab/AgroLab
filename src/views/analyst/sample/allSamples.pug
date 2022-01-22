@@ -17,7 +17,7 @@ block content
               .card-body
                 .table-rep-plugin
                   .table-wrapper
-                    //- .btn-toolbar
+                    .btn-toolbar
                       .btn-group.pull-left.responsive
                         .app-search.d-block.w-responsive
                           .position-relative.w-responsive
@@ -34,13 +34,7 @@ block content
                             th(scope="col") Tipo de análisis
                         tbody
                           //- tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
-                          //- tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
-                            td(scope="row") {{s.code}}
-                            td {{setTime(s.date)}}
-                            td {{setNormalTime(s.resultsDeliveryDate)}}
-                            td {{s.matrix}}
-                            td {{s.analysisType}}
-                          tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id")
+                          tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
                             td(scope="row") {{s.code}}
                             td {{setTime(s.date)}}
                             td {{setNormalTime(s.resultsDeliveryDate)}}

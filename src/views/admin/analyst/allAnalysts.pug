@@ -37,10 +37,10 @@ block content
                             td {{a.name}} {{a.lastName}}
                             td {{a.email}}
                             td {{a.waterPermits && a.groundPermits?a.waterPermits.length+a.groundPermits.length:0}}
-                            //- td 
-                            //-   button.btn.btn-info(@click="editAnalyst(a)")
-                            //-     i.far.fa-edit.align-middle.mr-1.mb-1
-                            //-     | Editar analista
+                            td 
+                              button.btn.btn-info(@click="editAnalyst(a)")
+                                i.far.fa-edit.align-middle.mr-1.mb-1
+                                | Editar analista
                       h3.text-center(v-if="displayedAnalysts.length==0 && name!=''") Su búsqueda no coincidió
                       h3.text-center(v-else-if="analystsOrigin.length==0 && name==''") Aún no ha registrado analistas
                     .col-12(v-if="displayedAnalysts.length>0" )

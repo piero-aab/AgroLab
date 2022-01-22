@@ -10,7 +10,7 @@ block content
         .row
           .col-12
             .page-title-box.d-flex.align-items-center.justify-content-center
-              h1.mb-0  Lista de muestras
+              h1.mb-0  Lista de muestras asignadas
         .row
           .col-12
             .card
@@ -34,13 +34,6 @@ block content
                             th(scope="col") Tipo de análisis
                         tbody
                           tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
-                          tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
-                            td(scope="row") {{s.code}}
-                            td {{setTime(s.date)}}
-                            td {{setNormalTime(s.resultsDeliveryDate)}}
-                            td {{s.matrix}}
-                            td {{s.analysisType}}
-                          tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id")
                             td(scope="row") {{s.code}}
                             td {{setTime(s.date)}}
                             td {{setNormalTime(s.resultsDeliveryDate)}}

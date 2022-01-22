@@ -116,13 +116,12 @@ block content
                             td(scope="row" ) 
                               span.units(v-html='r.units')
           .col-12
-            .card
-              .card-body
-                h4.card-title Imagenes
-                p.card-title-desc
+            //- .card
+                //- h4.card-title Imagenes
+                //- p.card-title-desc
                   | Cargue sus imagenes en el orden respectivo
 
-                div
+                //- div
                   form.dropzone#myform(action=`/secretaria/muestras/${sample._id}/reporte/crear` method="post" enctype="multipart/form-data")
                     .fallback
                       input(name='file' type='file' multiple='multiple')
@@ -130,12 +129,12 @@ block content
                       .mb-3
                         i.display-4.text-muted.ri-upload-cloud-2-line
                       h4 Suelta los archivos aquí o haz clic para subirlos.
-                .form-group.mt-2
-                  div(style='display:flex; justify-content:center;')
-                    button.btn.btn-primary.waves-effect.waves-light.mr-1#finalBtn(onclick=`myFunction("${sample._id}")` type='button')
-                      | Enviar Resultados
-                    a.btn.btn-secondary.waves-effect(style='margin: 0 0 0 16px;' href='/secretaria/muestras')
-                      | Volver
+          .form-group.mt-2
+            div(style='display:flex; justify-content:center;')
+              button.btn.btn-primary.waves-effect(onclick="window.print()" style='margin: 0 0 0 16px;')
+                | Imprimir Resultados
+              a.btn.btn-secondary.waves-effect(style='margin: 0 0 0 16px;' href='/secretaria/muestras')
+                | Volver
   script(src='/libs/dropzone/dropzone.js')
   script.
     let count = 0

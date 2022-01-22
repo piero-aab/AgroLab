@@ -54,9 +54,8 @@ block content
                               span(v-html="getStatus(s.status)")
                             td 
                               button.btn.btn-primary(v-if="s.status<2" @click="editSample(s._id)") 
-                                //- i.far.fa-edit.align-middle.mr-1.mb-1
-                                //- | Editar muestra
-                                | Mas adelante
+                                i.far.fa-edit.align-middle.mr-1.mb-1
+                                | Editar muestra
                               button.btn.btn-primary(v-else-if="s.status==3" @click="createReport(s._id)") 
                                 i.fas.fa-file-signature.align-middle.mr-1.mb-1
                                 | Generar informe

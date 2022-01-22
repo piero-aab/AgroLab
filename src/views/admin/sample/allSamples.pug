@@ -17,7 +17,7 @@ block content
               .card-body
                 .table-rep-plugin
                   .table-wrapper
-                    //- .btn-toolbar
+                    .btn-toolbar
                       .btn-group.pull-left.responsive
                         .app-search.d-block.w-responsive
                           .position-relative.w-responsive
@@ -40,26 +40,17 @@ block content
                         tbody
                           //- tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id" @click.prevent='openSample(s._id)')
                           tr.cursor-pointer(v-for="(s, index) in displayedSamples" :key="s._id")
-                            //- td(scope="row" @click.prevent='openSample(s._id)') {{s.code}}
-                            //- td(@click.prevent='openSample(s._id)') {{setTime(s.date)}}
-                            //- td(@click.prevent='openSample(s._id)') {{s.matrix}}
-                            //- td(@click.prevent='openSample(s._id)') {{s.client.document}}
-                            //- td(@click.prevent='openSample(s._id)') {{s.client.name}}
-                            //- td(@click.prevent='openSample(s._id)') {{s.applicant}}
-                            //- td(@click.prevent='openSample(s._id)') {{s.analysisType}} 
-                            //- td(@click.prevent='openSample(s._id)') 
-                            td(scope="row" ) {{s.code}}
-                            td() {{setTime(s.date)}}
-                            td() {{s.matrix}}
-                            td() {{s.client.document}}
-                            td() {{s.client.name}}
-                            td() {{s.applicant}}
-                            td() {{s.analysisType}} 
-                            td() 
+                            td(scope="row" @click.prevent='openSample(s._id)') {{s.code}}
+                            td(@click.prevent='openSample(s._id)') {{setTime(s.date)}}
+                            td(@click.prevent='openSample(s._id)') {{s.matrix}}
+                            td(@click.prevent='openSample(s._id)') {{s.client.document}}
+                            td(@click.prevent='openSample(s._id)') {{s.client.name}}
+                            td(@click.prevent='openSample(s._id)') {{s.applicant}}
+                            td(@click.prevent='openSample(s._id)') {{s.analysisType}} 
+                            td(@click.prevent='openSample(s._id)') 
                               span(v-html="getStatus(s.status)")
                             td 
-                              //- button.btn.btn-info(v-if="s.status<3" @click="assignAnalyst(s._id, s.matrix, s.status)")
-                              button.btn.btn-info
+                              button.btn.btn-info(v-if="s.status<3" @click="assignAnalyst(s._id, s.matrix, s.status)") 
                                 i.fas.fa-user-plus.align-middle.mr-1.mb-1
                                 | Asignar analista
                       h3.text-center(v-if="displayedSamples.length==0 && name!=''") Su búsqueda no coincidió
